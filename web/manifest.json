@@ -1,6 +1,6 @@
 {
-    "name": "test",
-    "short_name": "test",
+    "name": "lab_6",
+    "short_name": "lab_6",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
