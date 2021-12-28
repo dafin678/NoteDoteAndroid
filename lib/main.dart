@@ -32,6 +32,7 @@ class MyApp extends StatelessWidget {
             LoginPage.routeName: (ctx) => const LoginPage(),
           },
           onGenerateRoute: (settings) {
+            // ignore: avoid_print
             print(settings.arguments);
           },
           onUnknownRoute: (settings) {
