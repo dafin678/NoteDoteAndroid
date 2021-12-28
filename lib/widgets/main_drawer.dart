@@ -44,10 +44,19 @@ class MainDrawer extends StatelessWidget {
           const SizedBox(
             height: 20,
           ),
-          buildListTile('Masakan', Icons.restaurant, () {
+          buildListTile('Dashboard', Icons.house, () {
             Navigator.of(context).pushReplacementNamed('/');
           }),
-          buildListTile('Filter', Icons.settings, () {
+          buildListTile('Personal Journal', Icons.laptop, () {
+            Navigator.of(context).pushReplacementNamed('/');
+          }),
+          buildListTile('Notes', Icons.folder, () {
+            Navigator.of(context).pushReplacementNamed('/');
+          }),
+          buildListTile('Quotes', Icons.text_fields, () {
+            Navigator.of(context).pushReplacementNamed('/');
+          }),
+          buildListTile('Weekly Schedule', Icons.calendar_today, () {
             Navigator.of(context).pushReplacementNamed('/');
           }),
           buildListTile('Profile', Icons.person, () {

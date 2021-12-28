@@ -28,7 +28,7 @@ class _ProfileEditScreen extends State<ProfileEditScreen> {
                 height: 56,
                 width: 56,
                 color: _value == 0 ? Colors.grey : Colors.transparent,
-                child: Icon(Icons.call),
+                child: const Icon(Icons.call),
               ),
             ),
             const SizedBox(width: 4),

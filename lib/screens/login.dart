@@ -14,7 +14,7 @@ class _LoginPageState extends State<LoginPage> {
   final _passwordController = TextEditingController();
 
   void login(context, request) async {
-    final response = await request.login("https://notedote.herokuapp.com/auth/login", {
+    await request.login("https://notedote.herokuapp.com/auth/login", {
       'username': _usernameController.text,
       'password': _passwordController.text,
     });
