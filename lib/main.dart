@@ -22,14 +22,14 @@ class MyApp extends StatelessWidget {
         },
         child: MaterialApp(
           title: 'NoteDote',
-          theme: ThemeData(
-            primarySwatch: Colors.blue,
-          ),
+          // theme: ThemeData(
+          //   primarySwatch: Colors.blue,
+          // ),
           debugShowCheckedModeBanner: false,
-          // initialRoute: LoginPage.routeName, // default is '/'
-          initialRoute: ProfileScreen.routeName, // default is '/'
-          theme: ThemeData.dark(),    
           initialRoute: LoginPage.routeName, // default is '/'
+          // initialRoute: ProfileScreen.routeName, // default is '/'
+          theme: ThemeData.dark(),
+          // initialRoute: LoginPage.routeName, // default is '/'
           routes: {
             '/': (ctx) => const MyHomePage(title: 'NoteDote'),
             ProfileScreen.routeName: (ctx) => const ProfileScreen(),
