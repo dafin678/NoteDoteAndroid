@@ -27,13 +27,21 @@ class _ScheduleForm extends State<ScheduleForm> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Weekly Schedule Form'),
+        title: const Text('Weekly Schedule Form', style: TextStyle(fontWeight: FontWeight.bold)),
         backgroundColor: Colors.grey[500],
         foregroundColor: Colors.deepPurple[900],
+        actions: <Widget>[
+          IconButton(
+            icon: const Icon(Icons.list),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          )
+        ],
       ),
       drawer: const MainDrawer(), // optional
-      body: Container(
-        color: Colors.white24,
+      body: Center(
+        // color: Colors.white24,
         child: Form(
           key: _formkey,
           child: Column(
