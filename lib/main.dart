@@ -5,7 +5,6 @@ import '/widgets/main_drawer.dart';
 import '/screens/profile_screen.dart';
 import '/screens/profile_edit_screen.dart';
 import '/screens/login.dart';
-import '/screens/weekly_schedule.dart';
 
 void main() {
   runApp(const MyApp());
@@ -36,8 +35,6 @@ class MyApp extends StatelessWidget {
             ProfileScreen.routeName: (ctx) => const ProfileScreen(),
             ProfileEditScreen.routeName: (ctx) => const ProfileEditScreen(),
             LoginPage.routeName: (ctx) => const LoginPage(),
-            WeeklySchedule.routeName: (ctx) => const WeeklySchedule(),
-            ScheduleForm.routeName: (ctx) => const ScheduleForm(),
           },
           onGenerateRoute: (settings) {
             // ignore: avoid_print
