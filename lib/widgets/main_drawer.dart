@@ -46,7 +46,7 @@ class MainDrawer extends StatelessWidget {
             height: 20,
           ),
           buildListTile('Dashboard', Icons.house, () {
-            Navigator.of(context).pushReplacementNamed(ProfileScreen.routeName);
+            Navigator.of(context).pushReplacementNamed('/');
           }),
           buildListTile('Personal Journal', Icons.laptop, () {
             Navigator.of(context).pushReplacementNamed('/');
