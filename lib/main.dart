@@ -5,6 +5,7 @@ import '/widgets/main_drawer.dart';
 import '/screens/profile_screen.dart';
 import '/screens/profile_edit_screen.dart';
 import '/screens/login.dart';
+import '/screens/weekly_schedule.dart';
 
 void main() {
   runApp(const MyApp());
@@ -26,15 +27,16 @@ class MyApp extends StatelessWidget {
           //   primarySwatch: Colors.blue,
           // ),
           debugShowCheckedModeBanner: false,
-          initialRoute: LoginPage.routeName, // default is '/'
-          // initialRoute: ProfileScreen.routeName, // default is '/'
-          theme: ThemeData.dark(),
           // initialRoute: LoginPage.routeName, // default is '/'
+          initialRoute: WeeklySchedule.routeName, // default is '/'
+          theme: ThemeData.dark(),
           routes: {
             '/': (ctx) => const MyHomePage(title: 'NoteDote'),
             ProfileScreen.routeName: (ctx) => const ProfileScreen(),
             ProfileEditScreen.routeName: (ctx) => const ProfileEditScreen(),
             LoginPage.routeName: (ctx) => const LoginPage(),
+            WeeklySchedule.routeName: (ctx) => const WeeklySchedule(),
+            ScheduleForm.routeName: (ctx) => const ScheduleForm(),
           },
           onGenerateRoute: (settings) {
             // ignore: avoid_print

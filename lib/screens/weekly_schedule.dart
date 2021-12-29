@@ -17,6 +17,11 @@ class _ScheduleForm extends State<ScheduleForm> {
   final _formkey = GlobalKey<FormState>();
   // static const Color dark = Color(0xffffff);
 
+  var title = '';
+  var day = '';
+  var start_time = '';
+  var due_time = '';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,8 +39,8 @@ class _ScheduleForm extends State<ScheduleForm> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                // padding: const EdgeInsets.all(20.0),
-                padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
+                padding: const EdgeInsets.all(20.0),
+                // padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
                 child:Text('Add Schedule in here', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25, color: Colors.teal[200])),
               ),
               const Padding(
@@ -58,6 +63,7 @@ class _ScheduleForm extends State<ScheduleForm> {
                     if (value == null || value.isEmpty) {
                       return 'Please add a valid text for name';
                     }
+                    title = value;
                     return null;
                   },
                 ),
@@ -81,6 +87,7 @@ class _ScheduleForm extends State<ScheduleForm> {
                       if (value == null || value.isEmpty) {
                         return 'Please add a valid day';
                       }
+                      day = value;
                       return null;
                     },
                   )
@@ -105,6 +112,7 @@ class _ScheduleForm extends State<ScheduleForm> {
                       if (value == null || value.isEmpty) {
                         return 'Please add a valid time';
                       }
+                      start_time = value;
                       return null;
                     },
                   )
@@ -129,6 +137,7 @@ class _ScheduleForm extends State<ScheduleForm> {
                       if (value == null || value.isEmpty) {
                         return 'Please add a valid time';
                       }
+                      due_time = value;
                       return null;
                     },
                   )
