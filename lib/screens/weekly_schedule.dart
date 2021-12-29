@@ -19,8 +19,8 @@ class _ScheduleForm extends State<ScheduleForm> {
 
   var title = '';
   var day = '';
-  var start_time = '';
-  var due_time = '';
+  var startTime = '';
+  var dueTime = '';
 
   @override
   Widget build(BuildContext context) {
@@ -112,7 +112,7 @@ class _ScheduleForm extends State<ScheduleForm> {
                       if (value == null || value.isEmpty) {
                         return 'Please add a valid time';
                       }
-                      start_time = value;
+                      startTime = value;
                       return null;
                     },
                   )
@@ -137,7 +137,7 @@ class _ScheduleForm extends State<ScheduleForm> {
                       if (value == null || value.isEmpty) {
                         return 'Please add a valid time';
                       }
-                      due_time = value;
+                      dueTime = value;
                       return null;
                     },
                   )
