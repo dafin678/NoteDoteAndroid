@@ -38,20 +38,20 @@ class _ScheduleForm extends State<ScheduleForm> {
                 padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
                 child:Text('Add Schedule in here', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25, color: Colors.teal[200])),
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
+              const Padding(
+                padding: EdgeInsets.all(8.0),
                 child: Text('Name: '),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child:TextFormField(
                   autofocus: true,
-                  decoration: new InputDecoration(
+                  decoration: InputDecoration(
                       hintText: "Enter a schedule title",
                       labelText: "Name of schedule",
-                      icon: Icon(Icons.assignment),
+                      icon: const Icon(Icons.assignment),
                       border: OutlineInputBorder(
-                          borderRadius: new BorderRadius.circular(5.0)
+                          borderRadius: BorderRadius.circular(5.0)
                       )
                   ),
                   validator: (value) {
@@ -62,19 +62,19 @@ class _ScheduleForm extends State<ScheduleForm> {
                   },
                 ),
               ),
-              Padding(
-                  padding: const EdgeInsets.all(8.0),
+              const Padding(
+                  padding: EdgeInsets.all(8.0),
                   child: Text('Day: ')
               ),
               Padding(
                   padding: const EdgeInsets.all(8.0),
                   child:TextFormField(
-                    decoration: new InputDecoration(
+                    decoration: InputDecoration(
                         hintText: "Enter a day of schedule",
                         labelText: "Day of schedule",
-                        icon: Icon(Icons.calendar_today),
+                        icon: const Icon(Icons.calendar_today),
                         border: OutlineInputBorder(
-                            borderRadius: new BorderRadius.circular(5.0)
+                            borderRadius: BorderRadius.circular(5.0)
                         )
                     ),
                     validator: (value) {
@@ -85,20 +85,20 @@ class _ScheduleForm extends State<ScheduleForm> {
                     },
                   )
               ),
-              Padding(
-                  padding: const EdgeInsets.all(8.0),
+              const Padding(
+                  padding: EdgeInsets.all(8.0),
                   child: Text('Start Time: ')
               ),
               Padding(
                   padding: const EdgeInsets.all(8.0),
                   child:TextFormField(
                     keyboardType: TextInputType.datetime,
-                    decoration: new InputDecoration(
+                    decoration: InputDecoration(
                         hintText: "Enter a start time of schedule",
                         labelText: "Start Time of schedule",
-                        icon: Icon(Icons.watch_later),
+                        icon: const Icon(Icons.watch_later),
                         border: OutlineInputBorder(
-                            borderRadius: new BorderRadius.circular(5.0)
+                            borderRadius: BorderRadius.circular(5.0)
                         )
                     ),
                     validator: (value) {
@@ -109,20 +109,20 @@ class _ScheduleForm extends State<ScheduleForm> {
                     },
                   )
               ),
-              Padding(
-                  padding: const EdgeInsets.all(8.0),
+              const Padding(
+                  padding: EdgeInsets.all(8.0),
                   child: Text('Due Time: ')
               ),
               Padding(
                   padding: const EdgeInsets.all(8.0),
                   child:TextFormField(
                     keyboardType: TextInputType.datetime,
-                    decoration: new InputDecoration(
+                    decoration: InputDecoration(
                         hintText: "Enter a end time of schedule",
                         labelText: "End Time of schedule",
-                        icon: Icon(Icons.watch_later_outlined),
+                        icon: const Icon(Icons.watch_later_outlined),
                         border: OutlineInputBorder(
-                            borderRadius: new BorderRadius.circular(5.0)
+                            borderRadius: BorderRadius.circular(5.0)
                         )
                     ),
                     validator: (value) {
@@ -135,7 +135,7 @@ class _ScheduleForm extends State<ScheduleForm> {
               ),
               Padding(
                 // padding: const EdgeInsets.symmetric(vertical: 16.0),
-                padding: EdgeInsets.all(20.0),
+                padding: const EdgeInsets.all(20.0),
                 child: ElevatedButton(
                   onPressed: () {
                     if (_formkey.currentState!.validate()) {
@@ -148,7 +148,7 @@ class _ScheduleForm extends State<ScheduleForm> {
                   style: ElevatedButton.styleFrom(
                     primary: Colors.teal[200],
                     // padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
-                    textStyle: TextStyle(
+                    textStyle: const TextStyle(
                     fontSize: 20,
                     // fontWeight: FontWeight.bold
                     )
