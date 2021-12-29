@@ -2,8 +2,8 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../widgets/main_drawer.dart';
 import '../cookie_request.dart';
+import 'profile_screen.dart';
 
 Future<List> getJsonData(http.Client client) async {
   var response = await client.get(
@@ -22,26 +22,36 @@ class ProfileEditScreen extends StatefulWidget {
 class _ProfileEditScreen extends State<ProfileEditScreen> {
   final _nameController = TextEditingController();
   final _aboutController = TextEditingController();
+  String _value = '';
 
-  int _value = 0;
+  void submit(context, request, key) async {
+    var map = <String, String>{};
+    map["name"] = _nameController.text;
+    map["about"] = _aboutController.text;
+    map["image_name"] = _value;
+    await request.post("https://notedote.herokuapp.com/profile/submit-profile", map);
+  }
 
   @override
   Widget build(BuildContext context) {
+    final _key = GlobalKey<ScaffoldState>();
+    final request = context.watch<CookieRequest>();
     return Scaffold(
+        key: _key,
         appBar: AppBar(
           title: const Text('Edit Profile'),
         ),
         body: Padding(
             padding: const EdgeInsets.all(10),
             child: ListView(children: <Widget>[
-              TextField(
+              TextFormField(
                 controller: _nameController,
                 decoration: const InputDecoration(
                   labelText: 'Name',
                 ),
               ),
               const SizedBox(height: 30.0),
-              TextField(
+              TextFormField(
                 controller: _aboutController,
                 keyboardType: TextInputType.multiline,
                 maxLines: 4,
@@ -58,7 +68,6 @@ class _ProfileEditScreen extends State<ProfileEditScreen> {
                   future: getJsonData(http.Client()),
                   builder: (context, snapshot) {
                     if (snapshot.hasError) {
-                      print(snapshot.error);
                       return const Center(
                         child: Text('An error has occurred!'),
                       );
@@ -75,19 +84,20 @@ class _ProfileEditScreen extends State<ProfileEditScreen> {
                           Container(
                             padding: const EdgeInsets.all(8),
                             child: GestureDetector(
-                              onTap: () => setState(() => _value = 0),
+                              onTap: () => setState(
+                                  () => _value = snapshot.data![0]['name']),
                               child: Container(
                                 decoration: BoxDecoration(
                                   border: Border.all(
-                                    color: _value == 0
+                                    color: _value == snapshot.data![0]['name']
                                         ? Colors.grey
                                         : Colors.transparent,
                                     width: 5,
                                   ),
                                   image: DecorationImage(
                                     fit: BoxFit.fill,
-                                    image: NetworkImage(
-                                        snapshot.data![0]['url']),
+                                    image:
+                                        NetworkImage(snapshot.data![0]['url']),
                                   ),
                                 ),
                               ),
@@ -96,19 +106,20 @@ class _ProfileEditScreen extends State<ProfileEditScreen> {
                           Container(
                             padding: const EdgeInsets.all(8),
                             child: GestureDetector(
-                              onTap: () => setState(() => _value = 1),
+                              onTap: () => setState(
+                                  () => _value = snapshot.data![1]['name']),
                               child: Container(
                                 decoration: BoxDecoration(
                                   border: Border.all(
-                                    color: _value == 1
+                                    color: _value == snapshot.data![1]['name']
                                         ? Colors.grey
                                         : Colors.transparent,
                                     width: 5,
                                   ),
                                   image: DecorationImage(
                                     fit: BoxFit.fill,
-                                    image: NetworkImage(
-                                        snapshot.data![1]['url']),
+                                    image:
+                                        NetworkImage(snapshot.data![1]['url']),
                                   ),
                                 ),
                               ),
@@ -117,19 +128,20 @@ class _ProfileEditScreen extends State<ProfileEditScreen> {
                           Container(
                             padding: const EdgeInsets.all(8),
                             child: GestureDetector(
-                              onTap: () => setState(() => _value = 2),
+                              onTap: () => setState(
+                                  () => _value = snapshot.data![2]['name']),
                               child: Container(
                                 decoration: BoxDecoration(
                                   border: Border.all(
-                                    color: _value == 2
+                                    color: _value == snapshot.data![2]['name']
                                         ? Colors.grey
                                         : Colors.transparent,
                                     width: 5,
                                   ),
                                   image: DecorationImage(
                                     fit: BoxFit.fill,
-                                    image: NetworkImage(
-                                        snapshot.data![2]['url']),
+                                    image:
+                                        NetworkImage(snapshot.data![2]['url']),
                                   ),
                                 ),
                               ),
@@ -138,19 +150,20 @@ class _ProfileEditScreen extends State<ProfileEditScreen> {
                           Container(
                             padding: const EdgeInsets.all(8),
                             child: GestureDetector(
-                              onTap: () => setState(() => _value = 3),
+                              onTap: () => setState(
+                                  () => _value = snapshot.data![3]['name']),
                               child: Container(
                                 decoration: BoxDecoration(
                                   border: Border.all(
-                                    color: _value == 3
+                                    color: _value == snapshot.data![3]['name']
                                         ? Colors.grey
                                         : Colors.transparent,
                                     width: 5,
                                   ),
                                   image: DecorationImage(
                                     fit: BoxFit.fill,
-                                    image: NetworkImage(
-                                        snapshot.data![3]['url']),
+                                    image:
+                                        NetworkImage(snapshot.data![3]['url']),
                                   ),
                                 ),
                               ),
@@ -159,19 +172,20 @@ class _ProfileEditScreen extends State<ProfileEditScreen> {
                           Container(
                             padding: const EdgeInsets.all(8),
                             child: GestureDetector(
-                              onTap: () => setState(() => _value = 4),
+                              onTap: () => setState(
+                                  () => _value = snapshot.data![4]['name']),
                               child: Container(
                                 decoration: BoxDecoration(
                                   border: Border.all(
-                                    color: _value == 4
+                                    color: _value == snapshot.data![4]['name']
                                         ? Colors.grey
                                         : Colors.transparent,
                                     width: 5,
                                   ),
                                   image: DecorationImage(
                                     fit: BoxFit.fill,
-                                    image: NetworkImage(
-                                        snapshot.data![4]['url']),
+                                    image:
+                                        NetworkImage(snapshot.data![4]['url']),
                                   ),
                                 ),
                               ),
@@ -180,19 +194,20 @@ class _ProfileEditScreen extends State<ProfileEditScreen> {
                           Container(
                             padding: const EdgeInsets.all(8),
                             child: GestureDetector(
-                              onTap: () => setState(() => _value = 5),
+                              onTap: () => setState(
+                                  () => _value = snapshot.data![5]['name']),
                               child: Container(
                                 decoration: BoxDecoration(
                                   border: Border.all(
-                                    color: _value == 5
+                                    color: _value == snapshot.data![5]['name']
                                         ? Colors.grey
                                         : Colors.transparent,
                                     width: 5,
                                   ),
                                   image: DecorationImage(
                                     fit: BoxFit.fill,
-                                    image: NetworkImage(
-                                        snapshot.data![5]['url']),
+                                    image:
+                                        NetworkImage(snapshot.data![5]['url']),
                                   ),
                                 ),
                               ),
@@ -201,19 +216,20 @@ class _ProfileEditScreen extends State<ProfileEditScreen> {
                           Container(
                             padding: const EdgeInsets.all(8),
                             child: GestureDetector(
-                              onTap: () => setState(() => _value = 6),
+                              onTap: () => setState(
+                                  () => _value = snapshot.data![6]['name']),
                               child: Container(
                                 decoration: BoxDecoration(
                                   border: Border.all(
-                                    color: _value == 6
+                                    color: _value == snapshot.data![6]['name']
                                         ? Colors.grey
                                         : Colors.transparent,
                                     width: 5,
                                   ),
                                   image: DecorationImage(
                                     fit: BoxFit.fill,
-                                    image: NetworkImage(
-                                        snapshot.data![6]['url']),
+                                    image:
+                                        NetworkImage(snapshot.data![6]['url']),
                                   ),
                                 ),
                               ),
@@ -222,19 +238,20 @@ class _ProfileEditScreen extends State<ProfileEditScreen> {
                           Container(
                             padding: const EdgeInsets.all(8),
                             child: GestureDetector(
-                              onTap: () => setState(() => _value = 7),
+                              onTap: () => setState(
+                                  () => _value = snapshot.data![7]['name']),
                               child: Container(
                                 decoration: BoxDecoration(
                                   border: Border.all(
-                                    color: _value == 7
+                                    color: _value == snapshot.data![7]['name']
                                         ? Colors.grey
                                         : Colors.transparent,
                                     width: 5,
                                   ),
                                   image: DecorationImage(
                                     fit: BoxFit.fill,
-                                    image: NetworkImage(
-                                        snapshot.data![7]['url']),
+                                    image:
+                                        NetworkImage(snapshot.data![7]['url']),
                                   ),
                                 ),
                               ),
@@ -243,19 +260,20 @@ class _ProfileEditScreen extends State<ProfileEditScreen> {
                           Container(
                             padding: const EdgeInsets.all(8),
                             child: GestureDetector(
-                              onTap: () => setState(() => _value = 8),
+                              onTap: () => setState(
+                                  () => _value = snapshot.data![8]['name']),
                               child: Container(
                                 decoration: BoxDecoration(
                                   border: Border.all(
-                                    color: _value == 8
+                                    color: _value == snapshot.data![8]['name']
                                         ? Colors.grey
                                         : Colors.transparent,
                                     width: 5,
                                   ),
                                   image: DecorationImage(
                                     fit: BoxFit.fill,
-                                    image: NetworkImage(
-                                        snapshot.data![8]['url']),
+                                    image:
+                                        NetworkImage(snapshot.data![8]['url']),
                                   ),
                                 ),
                               ),
@@ -264,25 +282,25 @@ class _ProfileEditScreen extends State<ProfileEditScreen> {
                           Container(
                             padding: const EdgeInsets.all(8),
                             child: GestureDetector(
-                              onTap: () => setState(() => _value = 9),
+                              onTap: () => setState(
+                                  () => _value = snapshot.data![9]['name']),
                               child: Container(
                                 decoration: BoxDecoration(
                                   border: Border.all(
-                                    color: _value == 9
+                                    color: _value == snapshot.data![9]['name']
                                         ? Colors.grey
                                         : Colors.transparent,
                                     width: 5,
                                   ),
                                   image: DecorationImage(
                                     fit: BoxFit.fill,
-                                    image: NetworkImage(
-                                        snapshot.data![9]['url']),
+                                    image:
+                                        NetworkImage(snapshot.data![9]['url']),
                                   ),
                                 ),
                               ),
                             ),
                           ),
-                          
                         ],
                       );
                     } else {
@@ -293,11 +311,26 @@ class _ProfileEditScreen extends State<ProfileEditScreen> {
                   }),
               Align(
                   child: ElevatedButton(
-                child: const Text('Submit'),
-                onPressed: () {
-                  print("print");
-                },
-              )),
+                      child: const Text('Submit'),
+                      onPressed: () {
+                        if (_nameController.text.isNotEmpty &&
+                            _aboutController.text.isNotEmpty &&
+                            _value.isNotEmpty) {
+                          submit(context, request, _key);
+                          Navigator.of(context)
+                              .pushReplacementNamed(ProfileScreen.routeName);
+                        } else {
+                          ScaffoldMessenger.of(context)
+                              .showSnackBar(SnackBar(
+                                  content: const Text('Form is not valid'),
+                                  action: SnackBarAction(
+                                    label: 'Hide',
+                                    onPressed: () {},
+                                  )));
+                          _nameController.clear();
+                          _aboutController.clear();
+                        }
+                      })),
             ])));
   }
 }

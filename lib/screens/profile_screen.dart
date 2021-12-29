@@ -48,7 +48,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            
+            const SizedBox(
+              height: 50,
+            ),
             Image.network(imgUrl),
             Padding(
                 padding: const EdgeInsets.fromLTRB(100.0, 0.0, 100.0, 0.0),
