@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-// import 'package:provider/provider.dart';
 import '../widgets/main_drawer.dart';
-// import '../cookie_request.dart';
+import 'package:http/http.dart' as http;
+// import 'dart:convert';
+import 'dart:async';
 
 class ScheduleForm extends StatefulWidget {
   static const routeName = '/add-schedule';
@@ -189,6 +190,22 @@ class WeeklySchedule extends StatefulWidget {
 
 class _WeeklyScheduleState extends State<WeeklySchedule> {
 
+  Future<String> getData() async {
+    var response = await http.get(
+        // Uri.encodeFull("https://jsonplaceholder.typicode.com/posts"),
+        Uri.parse("https://jsonplaceholder.typicode.com/posts"),
+        headers: {
+          "Accept": "application/json"
+        }
+    );
+    print(response.body);
+    // data = json.decode(response.body);
+    // print(data[1]["title"]);
+
+    return "Success!";
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -204,12 +221,12 @@ class _WeeklyScheduleState extends State<WeeklySchedule> {
         ],
       ),
       drawer: const MainDrawer(),
-      // body: Container(
-      //   color: Colors.blue,
-      //   child: Form(
-      //     key: _form,
-      //   ),
-      // )
+      body: Center(
+        child: RaisedButton(
+          child: Text("Get Data Test"),
+          onPressed: getData,
+        ),
+      ),
     );
   }
 

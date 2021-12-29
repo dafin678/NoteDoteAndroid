@@ -23,9 +23,6 @@ class MyApp extends StatelessWidget {
         },
         child: MaterialApp(
           title: 'NoteDote',
-          // theme: ThemeData(
-          //   primarySwatch: Colors.blue,
-          // ),
           debugShowCheckedModeBanner: false,
           // initialRoute: LoginPage.routeName, // default is '/'
           initialRoute: WeeklySchedule.routeName, // default is '/'
