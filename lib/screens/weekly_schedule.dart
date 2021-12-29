@@ -148,21 +148,22 @@ class _ScheduleForm extends State<ScheduleForm> {
                 child: ElevatedButton(
                   onPressed: () {
                     if (_formkey.currentState!.validate()) {
+                      // print('schedule with title: ${title}, day: ${day}, start time: ${startTime}, and due time: ${dueTime} successfully added');
                       // if the form is valid, display a snackbar
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(content: Text('Add Schedule Success')),
                       );
-                    }
+                  }
                   },
                   style: ElevatedButton.styleFrom(
                     primary: Colors.teal[200],
-                    // padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+                    padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
                     textStyle: const TextStyle(
                     fontSize: 20,
                     // fontWeight: FontWeight.bold
                     )
                   ),
-                  child: const Text('Submit', style: TextStyle(color: Colors.white60),),
+                  child: const Text('Submit', style: TextStyle(color: Colors.deepPurple),),
                 ),
               ),
             ],
