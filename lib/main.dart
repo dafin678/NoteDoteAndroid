@@ -4,6 +4,7 @@ import 'package:projek_akhir_f07/cookie_request.dart';
 import '/widgets/main_drawer.dart';
 import '/screens/profile_screen.dart';
 import '/screens/login.dart';
+import '/screens/weekly_schedule.dart';
 
 void main() {
   runApp(const MyApp());
@@ -24,12 +25,16 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             primarySwatch: Colors.blue,
           ),
-          initialRoute: LoginPage.routeName, // default is '/'
+          debugShowCheckedModeBanner: false,
+          // initialRoute: LoginPage.routeName, // default is '/'
+          initialRoute: ProfileScreen.routeName, // default is '/'
           routes: {
             '/': (ctx) => const MyHomePage(title: 'NoteDote'),
             ProfileScreen.routeName: (ctx) => const ProfileScreen(),
             ProfileEditScreen.routeName: (ctx) => const ProfileEditScreen(),
             LoginPage.routeName: (ctx) => const LoginPage(),
+            WeeklySchedule.routeName: (ctx) => const WeeklySchedule(),
+            ScheduleForm.routeName: (ctx) => const ScheduleForm(),
           },
           onGenerateRoute: (settings) {
             // ignore: avoid_print
