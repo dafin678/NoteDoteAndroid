@@ -22,9 +22,7 @@ class MyApp extends StatelessWidget {
         },
         child: MaterialApp(
           title: 'NoteDote',
-          theme: ThemeData(
-            primarySwatch: Colors.blue,
-          ),
+          theme: ThemeData.dark(),    
           initialRoute: LoginPage.routeName, // default is '/'
           routes: {
             '/': (ctx) => const MyHomePage(title: 'NoteDote'),
