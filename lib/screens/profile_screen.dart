@@ -2,69 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../widgets/main_drawer.dart';
 import '../cookie_request.dart';
+import 'profile_edit_screen.dart';
 
-
-class ProfileEditScreen extends StatefulWidget {
-  static const routeName = '/edit-profile';
-  const ProfileEditScreen({Key? key}) : super(key: key);
-  @override
-  _ProfileEditScreen createState() => _ProfileEditScreen();
-}
-
-class _ProfileEditScreen extends State<ProfileEditScreen> {
-  int _value = 0;
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(),
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Row(
-          children: <Widget>[
-            GestureDetector(
-              onTap: () => setState(() => _value = 0),
-              child: Container(
-                height: 56,
-                width: 56,
-                color: _value == 0 ? Colors.grey : Colors.transparent,
-                child: const Icon(Icons.call),
-              ),
-            ),
-            const SizedBox(width: 4),
-            GestureDetector(
-              onTap: () => setState(() => _value = 1),
-              child: Container(
-                height: 56,
-                width: 56,
-                decoration: BoxDecoration(
-                    border: Border.all(
-                  color: _value == 1 ? Colors.grey : Colors.transparent,
-                  width: 5,
-                )),
-                child: const Icon(Icons.message),
-              ),
-            ),
-            const SizedBox(width: 4),
-            GestureDetector(
-              onTap: () => setState(() => _value = 2),
-              child: Container(
-                height: 56,
-                width: 56,
-                decoration: BoxDecoration(
-                    border: Border.all(
-                  color: _value == 2 ? Colors.grey : Colors.transparent,
-                  width: 5,
-                )),
-                child: Image.network('https://picsum.photos/250?image=9'),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
 
 class ProfileScreen extends StatefulWidget {
   static const routeName = '/profile';
@@ -109,7 +48,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            
+            const SizedBox(
+              height: 50,
+            ),
             Image.network(imgUrl),
             Padding(
                 padding: const EdgeInsets.fromLTRB(100.0, 0.0, 100.0, 0.0),
