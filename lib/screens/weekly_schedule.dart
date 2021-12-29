@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../widgets/main_drawer.dart';
 import 'package:http/http.dart' as http;
-// import 'dart:convert';
+import 'dart:convert';
 import 'dart:async';
 
 class ScheduleForm extends StatefulWidget {
@@ -190,6 +190,8 @@ class WeeklySchedule extends StatefulWidget {
 
 class _WeeklyScheduleState extends State<WeeklySchedule> {
 
+  late List data;
+
   Future<String> getData() async {
     var response = await http.get(
         // Uri.encodeFull("https://jsonplaceholder.typicode.com/posts"),
@@ -198,8 +200,9 @@ class _WeeklyScheduleState extends State<WeeklySchedule> {
           "Accept": "application/json"
         }
     );
-    print(response.body);
-    // data = json.decode(response.body);
+    // print(response.body);
+
+    data = json.decode(response.body);
     // print(data[1]["title"]);
 
     return "Success!";
@@ -222,8 +225,8 @@ class _WeeklyScheduleState extends State<WeeklySchedule> {
       ),
       drawer: const MainDrawer(),
       body: Center(
-        child: RaisedButton(
-          child: Text("Get Data Test"),
+        child: ElevatedButton(
+          child: const Text("Get Data Test"),
           onPressed: getData,
         ),
       ),
