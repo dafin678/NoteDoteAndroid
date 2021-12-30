@@ -43,7 +43,7 @@ class _ScheduleForm extends State<ScheduleForm> {
         foregroundColor: Colors.deepPurple[900],
         actions: <Widget>[
           IconButton(
-            icon: const Icon(Icons.list),
+            icon: const Icon(Icons.assignment),
             onPressed: () {
               Navigator.pop(context);
             },
@@ -276,8 +276,8 @@ class _WeeklyScheduleState extends State<WeeklySchedule> {
   Future<String> getData() async {
     var response = await http.get(
         // Uri.encodeFull("https://jsonplaceholder.typicode.com/posts"),
-        Uri.parse("https://jsonplaceholder.typicode.com/posts"),
-        // Uri.parse(jsonDecode("https://notedote.herokuapp.com/weekly_schedule/get-all-schedule/")), // ubah pakai json schedule list dari django
+        // Uri.parse("https://jsonplaceholder.typicode.com/posts"),
+        Uri.parse(jsonDecode("https://notedote.herokuapp.com/weekly_schedule/get-all-schedule/")), // ubah pakai json schedule list dari django
         headers: {
           "Accept": "application/json"
         }
