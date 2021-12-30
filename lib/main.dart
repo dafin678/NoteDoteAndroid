@@ -6,6 +6,7 @@ import '/screens/profile_screen.dart';
 import '/screens/profile_edit_screen.dart';
 import '/screens/login.dart';
 import '/screens/weekly_schedule.dart';
+import '/screens/task_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -25,7 +26,7 @@ class MyApp extends StatelessWidget {
           title: 'NoteDote',
           debugShowCheckedModeBanner: false,
           // initialRoute: LoginPage.routeName, // default is '/'
-          initialRoute: WeeklySchedule.routeName, // default is '/'
+          initialRoute: LoginPage.routeName, // default is '/'
           theme: ThemeData.dark(),
           routes: {
             '/': (ctx) => const MyHomePage(title: 'NoteDote'),
@@ -34,6 +35,7 @@ class MyApp extends StatelessWidget {
             LoginPage.routeName: (ctx) => const LoginPage(),
             WeeklySchedule.routeName: (ctx) => const WeeklySchedule(),
             ScheduleForm.routeName: (ctx) => const ScheduleForm(),
+            Task.routeName: (ctx) => const Task(title: 'Task',),
           },
           onGenerateRoute: (settings) {
             // ignore: avoid_print
