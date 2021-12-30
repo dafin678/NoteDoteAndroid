@@ -7,6 +7,7 @@ import '/screens/profile_edit_screen.dart';
 import '/screens/login.dart';
 import '/screens/weekly_schedule.dart';
 import '/screens/task_screen.dart';
+import 'screens/add_task_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -36,6 +37,7 @@ class MyApp extends StatelessWidget {
             WeeklySchedule.routeName: (ctx) => const WeeklySchedule(),
             ScheduleForm.routeName: (ctx) => const ScheduleForm(),
             Task.routeName: (ctx) => const Task(title: 'Task',),
+            AddTask.routeName: (ctx) => const AddTask(title: 'Task',),
           },
           onGenerateRoute: (settings) {
             // ignore: avoid_print

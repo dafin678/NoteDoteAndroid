@@ -4,7 +4,10 @@ import 'package:projek_akhir_f07/widgets/main_drawer.dart';
 import '../models/comment_task.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:provider/provider.dart';
+import '../cookie_request.dart';
 import '../widgets/task_table.dart';
+import 'add_task_screen.dart';
 
 
 class Task extends StatefulWidget {
@@ -43,29 +46,24 @@ class TaskState extends State<Task> {
         print(error);
       }
     }
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    setState(() {
-      fetchData();
-    });
-  }
 
-  //Buat jalanin semua function
-  @override
-  void initState() {
-    super.initState();
-    _controller = TextEditingController();
-  }
-  static final _formKey = GlobalKey<FormState>();
-  static String nama = "";
-  static String description = "";
-  static String due_date = "";
 
-  static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-  static List<Widget> _widgetOptions = <Widget>[
-    FutureBuilder(
+  @override
+  Widget build(BuildContext context) {
+    final request = context.watch<CookieRequest>();
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Task'),
+        actions: <Widget>[
+          IconButton(
+            icon: const Icon(Icons.edit),
+            onPressed: () {
+              Navigator.of(context).pushNamed(AddTask.routeName);
+            },
+          )
+        ],
+      ),
+      body: FutureBuilder(
         future: fetchData(),
         builder: (context, AsyncSnapshot snapshot) {
           if (snapshot.data == null) {
@@ -86,150 +84,7 @@ class TaskState extends State<Task> {
             }).toList());
           }
         }),
-    Form(
-      key: _formKey,
-      child: Column(
-        children: [
-          TextFormField(
-            autofocus: true,
-            keyboardType: TextInputType.url,
-            maxLength: 30,
-            decoration: InputDecoration(
-                hintText: "Enter a Name",
-                contentPadding: EdgeInsets.fromLTRB(12, 0, 0, 0),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8),
-                )),
-            validator: (value) {
-              if (value!.isEmpty) {
-                return 'Please Insert a Name';
-              }
-              nama = value;
-              return null;
-            },
-          ),
-          TextFormField(
-            autofocus: true,
-            keyboardType: TextInputType.url,
-            maxLength: 30,
-            decoration: InputDecoration(
-                hintText: "Enter a Description",
-                contentPadding: EdgeInsets.fromLTRB(12, 0, 0, 0),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8),
-                )),
-            validator: (value) {
-              if (value!.isEmpty) {
-                return 'Please Insert a Description';
-              }
-              description = value;
-              return null;
-            },
-          ),
-          TextFormField(
-            autofocus: true,
-            keyboardType: TextInputType.url,
-            maxLength: 30,
-            decoration: InputDecoration(
-                hintText: "Enter the Due Date MM-DD-YYYY",
-                contentPadding: EdgeInsets.fromLTRB(12, 0, 0, 0),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8),
-                )),
-            validator: (value) {
-              if (value!.isEmpty) {
-                return 'Please Insert the Due Date';
-              }
-              due_date = value;
-              return null;
-            },
-          ),
-          SizedBox(
-            height: 12,
-          ),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              textStyle: const TextStyle(fontSize: 16),
-              primary: Colors.orange.shade800,
-              onPrimary: Colors.white,
-              side: BorderSide(width: 2, color: Colors.transparent),
-              padding: EdgeInsets.only(
-                  left: 12, right: 12, top: 8, bottom: 8),
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(18.0)),
-            ),
-            onPressed: () {
-              if (_formKey.currentState!.validate()) {
-                print(nama + " with deadline " + due_date + " successfully added");
-              }
-            },
-            child: const Text('Add'),
-          ),
-          SizedBox(
-            height: 20,
-          ),
-        ],
-      ),
-    ),
-  ];
-
-  void _onItemTapped(int index) {
-    setState(() {
-      TaskStateIndex = index;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text(widget.title)),
-      body: ListView(children: <Widget>[ 
-        _widgetOptions.elementAt(TaskStateIndex), 
-          ]),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.assignment_outlined),
-            label: 'Add Task',
-          ),
-        ],
-        currentIndex: TaskStateIndex,
-        selectedItemColor: Colors.amber[800],
-        onTap: (index) {
-            setState(() {
-              TaskStateIndex = index;
-            });
-          },
-      ),
       drawer: MainDrawer(),
-    );
-  }
-
-  Widget form() {
-    return Scaffold(
-      appBar: AppBar(title: Text(widget.title)),
-      body: ListView(children: <Widget>[
-        TextFormField(
-          autofocus: true,
-          decoration: InputDecoration(
-              hintText: "Enter a Name",
-              contentPadding: EdgeInsets.fromLTRB(12, 0, 0, 0),
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8),
-              )),
-          validator: (value) {
-            if (value!.isEmpty) {
-              return 'Please Insert a Name';
-            }
-            return null;
-          },
-        ),
-      ]
-      )
     );
   }
 }

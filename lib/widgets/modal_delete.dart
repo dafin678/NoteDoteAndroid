@@ -3,8 +3,9 @@
 import 'package:flutter/material.dart';
 import 'dart:convert' as convert;
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
 import '../widgets/task_table.dart';
-
+import '../cookie_request.dart';
 import '../screens/task_screen.dart';
 
 class ModalDelete extends StatefulWidget {
@@ -19,6 +20,7 @@ class ModalDelete extends StatefulWidget {
 class _ModalDeleteState extends State<ModalDelete> {
   @override
   Widget build(BuildContext context) {
+    final request = context.watch<CookieRequest>();
     return AlertDialog(
       title: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -35,7 +37,7 @@ class _ModalDeleteState extends State<ModalDelete> {
             height: 12,
           ),
           const Text(
-            "Are you you sure you have done this task? This process cannot be undone.",
+            "Are you sure you have done this task? This process cannot be undone.",
             style: TextStyle(fontSize: 16, color: Colors.black45),
             textAlign: TextAlign.center,
           ),
@@ -76,16 +78,10 @@ class _ModalDeleteState extends State<ModalDelete> {
                         borderRadius: new BorderRadius.circular(4.0)),
                   ),
                   onPressed: () async{
-                      final response = await http.post(Uri.parse(
+                    Map <String, String> data = {'pk': widget.task.taskPk.toString()};
+                      final response = await request.post(
                         "https://notedote.herokuapp.com/tasks/add-task" + widget.task.taskPk.toString(),
-                      ),
-                          headers: {
-                            "Content-Type" : 'application/json; charset=UTF-8'
-                          },
-                          body:
-                          convert.jsonEncode(<String, String>{
-                            'pk': widget.task.taskPk.toString(),
-                          }));
+                          convert.jsonEncode(data));
                       Navigator.pop(context);
                       if (response.statusCode == 200) {
                         ScaffoldMessenger.of(context).showSnackBar(
