@@ -18,6 +18,17 @@ class _ScheduleForm extends State<ScheduleForm> {
   final _formkey = GlobalKey<FormState>();
   // static const Color dark = Color(0xffffff);
 
+  List<String> dayItems = [
+    'monday',
+    'tuesday',
+    'wednesday',
+    'friday',
+    'saturday',
+    'sunday',
+  ];
+
+  final daySelected = TextEditingController();
+
   var title = '';
   var day = '';
   var startTime = '';
@@ -50,13 +61,15 @@ class _ScheduleForm extends State<ScheduleForm> {
               Padding(
                 padding: const EdgeInsets.all(20.0),
                 // padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
-                child:Text('Add Schedule in here', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25, color: Colors.teal[200])),
+                child:Text('Add Schedule in here', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25, color: Colors.teal[200]),
+                  textAlign: TextAlign.center,),
               ),
               const Padding(
                 padding: EdgeInsets.all(8.0),
                 child: Text('Name: '),
               ),
               Padding(
+              // SizedBox(
                 padding: const EdgeInsets.all(8.0),
                 child:TextFormField(
                   autofocus: true,
@@ -83,6 +96,66 @@ class _ScheduleForm extends State<ScheduleForm> {
               ),
               Padding(
                   padding: const EdgeInsets.all(8.0),
+
+                  // child: SizedBox(
+                  //   height: 20.0,
+                  //   child: DropDownField(
+                  //     controller: daySelected,
+                  //     hintText: "Select day of schedule",
+                  //     enabled: true,
+                  //     items: dayItems,
+                  //     onValueChanged: (value){
+                  //       setState(() {
+                  //         day = value;
+                  //       });
+                  //     },
+                  //   ),
+                  // )
+
+
+                  // child: DropdownButtonFormField2(
+                  //   decoration: InputDecoration(
+                  //     isDense: true,
+                  //     contentPadding: EdgeInsets.zero,
+                  //     border: OutlineInputBorder(
+                  //       // borderRadius: BorderRadius.circular(5.0),
+                  //       borderRadius: BorderRadius.circular(15),
+                  //     ),
+                  //   ),
+                  //   isExpanded: true,
+                  //   hint: const Text(
+                  //     'Select day of the schedule',
+                  //     style: TextStyle(fontSize: 14),
+                  //   ),
+                  //   iconSize: 30,
+                  //   buttonHeight: 60,
+                  //   buttonPadding: const EdgeInsets.only(left: 20, right: 10),
+                  //   dropdownDecoration: BoxDecoration(
+                  //     // borderRadius: BorderRadius.circular(5.0),
+                  //     borderRadius: BorderRadius.circular(15),
+                  //   ),
+                  //   items: dayItems.map((item) => DropdownMenuItem<String>(
+                  //       child: Text(
+                  //         item,
+                  //         style: const TextStyle(
+                  //           fontSize: 14,
+                  //         ),
+                  //       ),
+                  //   )).toList(),
+                  //   validator: (value){
+                  //     if (value == null){
+                  //       return 'Please select a valid day.';
+                  //     }
+                  //   },
+                  //   onChanged: (value){
+                  //     // do something
+                  //   },
+                  //   onSaved: (value){
+                  //     day = value.toString();
+                  //   },
+                  // ),
+
+
                   child:TextFormField(
                     decoration: InputDecoration(
                         hintText: "Enter a day of schedule",
@@ -204,6 +277,7 @@ class _WeeklyScheduleState extends State<WeeklySchedule> {
     var response = await http.get(
         // Uri.encodeFull("https://jsonplaceholder.typicode.com/posts"),
         Uri.parse("https://jsonplaceholder.typicode.com/posts"),
+        // Uri.parse(jsonDecode("https://notedote.herokuapp.com/weekly_schedule/get-all-schedule/")), // ubah pakai json schedule list dari django
         headers: {
           "Accept": "application/json"
         }
@@ -211,7 +285,15 @@ class _WeeklyScheduleState extends State<WeeklySchedule> {
     // print(response.body);
 
     data = json.decode(response.body);
+    // print(data);
     // print(data[1]["title"]);
+
+    // var response = await http.get(Uri.parse("https://notedote.herokuapp.com/weekly_schedule/get-all-schedule/"));
+    //
+    // final items = json.decode(response.body).cast<Map<String,dynamic>>();
+    // List<String> list_schedule = items.map<String>((json){
+    //   // return String.fromJson(json);
+    // }).toList();
 
     return "Success!";
   }
