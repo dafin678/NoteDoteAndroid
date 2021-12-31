@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:projek_akhir_f07/screens/journal_screen.dart';
+import 'package:projek_akhir_f07/screens/motivasi.dart';
 import 'package:provider/provider.dart';
 import 'package:projek_akhir_f07/cookie_request.dart';
 import '/widgets/main_drawer.dart';
@@ -37,7 +38,9 @@ class MyApp extends StatelessWidget {
             LoginPage.routeName: (ctx) => const LoginPage(),
             WeeklySchedules.routeName: (ctx) => const WeeklySchedules(),
             ScheduleForm.routeName: (ctx) => const ScheduleForm(),
-            Task.routeName: (ctx) => const Task(title: 'Task',),
+            Task.routeName: (ctx) => const Task(
+                  title: 'Task',
+                ),
             MondayScreen.routeName: (ctx) => const MondayScreen(),
             TuesdayScreen.routeName: (ctx) => const TuesdayScreen(),
             WednesdayScreen.routeName: (ctx) => const WednesdayScreen(),
@@ -46,7 +49,7 @@ class MyApp extends StatelessWidget {
             SaturdayScreen.routeName: (ctx) => const SaturdayScreen(),
             SundayScreen.routeName: (ctx) => const SundayScreen(),
             PersonalJournal.routeName: (ctx) => PersonalJournal(),
-
+            Motivasisc.routeName: (ctx) => const Motivasisc(),
           },
           onGenerateRoute: (settings) {
             // ignore: avoid_print
