@@ -52,21 +52,6 @@ class _MondayScreen extends State<MondayScreen>{
     return extractedData;
   }
 
-  // @override
-  // void didChangeDependencies() {
-  //   super.didChangeDependencies();
-  //   setState(() {
-  //     getData();
-  //   });
-  // }
-
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   this.getData();
-  // }
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -93,8 +78,10 @@ class _MondayScreen extends State<MondayScreen>{
               itemBuilder: (context, index){
                 var schedule = extractedData[index];
                 return Container(
-                  height: 100,
+                  height: 80,
                   margin: const EdgeInsets.all(8),
+                  padding: const EdgeInsets.all(10),
+                  color: Colors.grey[800],
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
@@ -109,11 +96,9 @@ class _MondayScreen extends State<MondayScreen>{
                       //   schedule.fields.day
                       // ),
                       Text(
-                        schedule.fields.startTime
-                      ),
+                          "Start Time: ${schedule.fields.startTime}"),
                       Text(
-                        schedule.fields.dueTime
-                      )
+                          "End Time: ${schedule.fields.dueTime}")
                     ],
                   ),
                 );
@@ -241,8 +226,10 @@ class _TuesdayScreen extends State<TuesdayScreen>{
               itemBuilder: (context, index){
                 var schedule = extractedData[index];
                 return Container(
-                  height: 100,
+                  height: 80,
                   margin: const EdgeInsets.all(8),
+                  padding: const EdgeInsets.all(10),
+                  color: Colors.grey[800],
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
@@ -257,11 +244,9 @@ class _TuesdayScreen extends State<TuesdayScreen>{
                       //   schedule.fields.day
                       // ),
                       Text(
-                          schedule.fields.startTime
-                      ),
+                          "Start Time: ${schedule.fields.startTime}"),
                       Text(
-                          schedule.fields.dueTime
-                      )
+                          "End Time: ${schedule.fields.dueTime}")
                     ],
                   ),
                 );
@@ -349,8 +334,10 @@ class _WednesdayScreen extends State<WednesdayScreen>{
               itemBuilder: (context, index){
                 var schedule = extractedData[index];
                 return Container(
-                  height: 100,
+                  height: 80,
                   margin: const EdgeInsets.all(8),
+                  padding: const EdgeInsets.all(10),
+                  color: Colors.grey[800],
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
@@ -364,12 +351,10 @@ class _WednesdayScreen extends State<WednesdayScreen>{
                       // Text(
                       //   schedule.fields.day
                       // ),
-                      Text(
-                          schedule.fields.startTime
-                      ),
-                      Text(
-                          schedule.fields.dueTime
-                      )
+                    Text(
+                        "Start Time: ${schedule.fields.startTime}"),
+                    Text(
+                        "End Time: ${schedule.fields.dueTime}")
                     ],
                   ),
                 );
@@ -457,8 +442,10 @@ class _ThursdayScreen extends State<ThursdayScreen>{
               itemBuilder: (context, index){
                 var schedule = extractedData[index];
                 return Container(
-                  height: 100,
+                  height: 80,
                   margin: const EdgeInsets.all(8),
+                  padding: const EdgeInsets.all(10),
+                  color: Colors.grey[800],
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
@@ -473,11 +460,9 @@ class _ThursdayScreen extends State<ThursdayScreen>{
                       //   schedule.fields.day
                       // ),
                       Text(
-                          schedule.fields.startTime
-                      ),
+                          "Start Time: ${schedule.fields.startTime}"),
                       Text(
-                          schedule.fields.dueTime
-                      )
+                          "End Time: ${schedule.fields.dueTime}")
                     ],
                   ),
                 );
@@ -565,8 +550,10 @@ class _FridayScreen extends State<FridayScreen>{
               itemBuilder: (context, index){
                 var schedule = extractedData[index];
                 return Container(
-                  height: 100,
+                  height: 80,
                   margin: const EdgeInsets.all(8),
+                  padding: const EdgeInsets.all(10),
+                  color: Colors.grey[800],
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
@@ -581,11 +568,9 @@ class _FridayScreen extends State<FridayScreen>{
                       //   schedule.fields.day
                       // ),
                       Text(
-                          schedule.fields.startTime
-                      ),
+                          "Start Time: ${schedule.fields.startTime}"),
                       Text(
-                          schedule.fields.dueTime
-                      )
+                          "End Time: ${schedule.fields.dueTime}")
                     ],
                   ),
                 );
@@ -673,8 +658,10 @@ class _SaturdayScreen extends State<SaturdayScreen>{
               itemBuilder: (context, index){
                 var schedule = extractedData[index];
                 return Container(
-                  height: 100,
+                  height: 80,
                   margin: const EdgeInsets.all(8),
+                  padding: const EdgeInsets.all(10),
+                  color: Colors.grey[800],
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
@@ -689,11 +676,9 @@ class _SaturdayScreen extends State<SaturdayScreen>{
                       //   schedule.fields.day
                       // ),
                       Text(
-                          schedule.fields.startTime
-                      ),
+                          "Start Time: ${schedule.fields.startTime}"),
                       Text(
-                          schedule.fields.dueTime
-                      )
+                          "End Time: ${schedule.fields.dueTime}")
                     ],
                   ),
                 );
@@ -781,8 +766,10 @@ class _SundayScreen extends State<SundayScreen>{
               itemBuilder: (context, index){
                 var schedule = extractedData[index];
                 return Container(
-                  height: 100,
+                  height: 80,
                   margin: const EdgeInsets.all(8),
+                  padding: const EdgeInsets.all(10),
+                  color: Colors.grey[800],
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
@@ -797,11 +784,9 @@ class _SundayScreen extends State<SundayScreen>{
                       //   schedule.fields.day
                       // ),
                       Text(
-                          schedule.fields.startTime
-                      ),
+                          "Start Time: ${schedule.fields.startTime}"),
                       Text(
-                          schedule.fields.dueTime
-                      )
+                          "End Time: ${schedule.fields.dueTime}")
                     ],
                   ),
                 );
