@@ -1,83 +1,107 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:projek_akhir_f07/cookie_request.dart';
-import '/widgets/main_drawer.dart';
-import '/screens/profile_screen.dart';
-import '/screens/profile_edit_screen.dart';
-import '/screens/login.dart';
-import '/screens/weekly_schedule.dart';
-import '/screens/task_screen.dart';
-
+ 
 void main() {
-  runApp(const MyApp());
+  runApp(MaterialApp(
+    home: MyApp(),
+  ));
 }
-
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
+ 
+class MyApp extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    return Provider(
-        create: (_) {
-          CookieRequest request = CookieRequest();
-          return request;
-        },
-        child: MaterialApp(
-          title: 'NoteDote',
-          debugShowCheckedModeBanner: false,
-          // initialRoute: LoginPage.routeName, // default is '/'
-          initialRoute: LoginPage.routeName, // default is '/'
-          theme: ThemeData.dark(),
-          routes: {
-            '/': (ctx) => const MyHomePage(title: 'NoteDote'),
-            ProfileScreen.routeName: (ctx) => const ProfileScreen(),
-            ProfileEditScreen.routeName: (ctx) => const ProfileEditScreen(),
-            LoginPage.routeName: (ctx) => const LoginPage(),
-            WeeklySchedule.routeName: (ctx) => const WeeklySchedule(),
-            ScheduleForm.routeName: (ctx) => const ScheduleForm(),
-            Task.routeName: (ctx) => const Task(title: 'Task',),
-          },
-          onGenerateRoute: (settings) {
-            // ignore: avoid_print
-            print(settings.arguments);
-          },
-          onUnknownRoute: (settings) {
-            return MaterialPageRoute(
-              builder: (ctx) => const MyHomePage(title: 'NoteDote'),
-            );
-          },
-        ));
-  }
+  _State createState() => _State();
 }
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
+ 
+class _State extends State<MyApp> {
+  TextEditingController nameController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+ 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      drawer: const MainDrawer(),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: const <Widget>[
-            Text(
-              'Hello!',
+        // appBar: AppBar(
+        //   title: Text('Sample App'),
+        // ),
+        body: Container(
+            // padding: EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: NetworkImage("https://images.pexels.com/photos/8472946/pexels-photo-8472946.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260"),
+                fit: BoxFit.cover
             ),
-          ],
-        ),
-      ),
-    );
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Container(
+                    alignment: Alignment.center,
+                    padding: EdgeInsets.all(10),
+                    child: Text(
+                      'NoteDote',
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.w500,
+                          fontSize: 30),
+                    )),
+                Container(
+                    alignment: Alignment.center,
+                    padding: EdgeInsets.all(10),
+                    child: Text(
+                      'Sign in',
+                      style: TextStyle(fontSize: 20),
+                    )),
+                Container(
+                  padding: EdgeInsets.all(10),
+                  child: TextField(
+                    controller: nameController,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Email',
+                    ),
+                  ),
+                ),
+                Container(
+                  padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
+                  child: TextField(
+                    obscureText: true,
+                    controller: passwordController,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Password',
+                    ),
+                  ),
+                ),
+                Container(
+                  height: 50,
+                    padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
+                    child: ElevatedButton(
+                      child: Text('Login'),
+                      style: ElevatedButton.styleFrom(
+                        onPrimary: Colors.white,
+                        primary: Colors.black,
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+                      ),
+                      onPressed: () {
+                        debugPrint(nameController.text);
+                        debugPrint(passwordController.text);
+                      },
+                    )),
+                Container(
+                  child: Row(
+                    children: <Widget>[
+                      Text('Don\'t have account?'),
+                      TextButton(
+                        child: Text('Sign Up'),
+                          style: TextButton.styleFrom(
+                            primary: Colors.black,
+                        ),
+                        onPressed: () {
+                          //signup screen
+                        },
+                      ),
+                    ],
+                    mainAxisAlignment: MainAxisAlignment.center,
+                ))
+              ],
+            )));
   }
 }

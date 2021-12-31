@@ -1,4 +1,4 @@
-package com.example.projek_akhir_f07
+package com.example.login_register
 
 import io.flutter.embedding.android.FlutterActivity
 

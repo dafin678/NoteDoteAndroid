@@ -1,8 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.projek_akhir_f07">
-    <uses-permission android:name="android.permission.INTERNET" />
+    package="com.example.login_register">
    <application
-        android:label="projek_akhir_f07"
+        android:label="login_register"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

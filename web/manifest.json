@@ -1,6 +1,6 @@
 {
-    "name": "projek_akhir_f07",
-    "short_name": "projek_akhir_f07",
+    "name": "login_register",
+    "short_name": "login_register",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
