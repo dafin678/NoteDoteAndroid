@@ -47,9 +47,6 @@ class MyApp extends StatelessWidget {
             Task.routeName: (ctx) => const Task(
                   title: 'Task',
                 ),
-            Task.routeName: (ctx) => const Task(
-                  title: 'Task',
-                ),
             MondayScreen.routeName: (ctx) => const MondayScreen(),
             TuesdayScreen.routeName: (ctx) => const TuesdayScreen(),
             WednesdayScreen.routeName: (ctx) => const WednesdayScreen(),
