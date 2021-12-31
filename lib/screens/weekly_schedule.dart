@@ -433,7 +433,7 @@ class _WeeklyScheduleState extends State<WeeklySchedules> {
       drawer: const MainDrawer(),
       body: GridView(
         padding: const EdgeInsets.all((25)),
-        children: DAY_CATEGORIES
+        children: dayCategories
             .map(
               (catData) => DayItem(
             catData.name,
@@ -442,7 +442,7 @@ class _WeeklyScheduleState extends State<WeeklySchedules> {
         )
             .toList(),
 
-        gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+        gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
           maxCrossAxisExtent: 200,
           childAspectRatio: 3 / 2,
           crossAxisSpacing: 20,
@@ -488,7 +488,7 @@ class Day {
   });
 }
 
-const DAY_CATEGORIES = const [
+const dayCategories = [
   Day(name: 'monday', color: Colors.purple),
   Day(name: 'tuesday', color: Colors.red),
   Day(name: 'wednesday', color: Colors.orange),
@@ -502,7 +502,7 @@ class DayItem extends StatelessWidget {
   final String name;
   final Color color;
 
-  DayItem(this.name, this.color);
+  const DayItem(this.name, this.color, {Key? key}) : super(key: key);
 
   void selectCategory(BuildContext ctx) {
     // Navigator.of(ctx).pushNamed(
