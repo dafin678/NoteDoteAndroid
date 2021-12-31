@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:projek_akhir_f07/screens/journal_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:projek_akhir_f07/cookie_request.dart';
 import '/widgets/main_drawer.dart';
@@ -44,6 +45,7 @@ class MyApp extends StatelessWidget {
             FridayScreen.routeName: (ctx) => const FridayScreen(),
             SaturdayScreen.routeName: (ctx) => const SaturdayScreen(),
             SundayScreen.routeName: (ctx) => const SundayScreen(),
+            PersonalJournal.routeName: (ctx) => PersonalJournal(),
 
           },
           onGenerateRoute: (settings) {
