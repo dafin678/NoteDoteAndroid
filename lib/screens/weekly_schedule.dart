@@ -98,66 +98,6 @@ class _ScheduleForm extends State<ScheduleForm> {
               ),
               Padding(
                   padding: const EdgeInsets.all(8.0),
-
-                  // child: SizedBox(
-                  //   height: 20.0,
-                  //   child: DropDownField(
-                  //     controller: daySelected,
-                  //     hintText: "Select day of schedule",
-                  //     enabled: true,
-                  //     items: dayItems,
-                  //     onValueChanged: (value){
-                  //       setState(() {
-                  //         day = value;
-                  //       });
-                  //     },
-                  //   ),
-                  // )
-
-
-                  // child: DropdownButtonFormField2(
-                  //   decoration: InputDecoration(
-                  //     isDense: true,
-                  //     contentPadding: EdgeInsets.zero,
-                  //     border: OutlineInputBorder(
-                  //       // borderRadius: BorderRadius.circular(5.0),
-                  //       borderRadius: BorderRadius.circular(15),
-                  //     ),
-                  //   ),
-                  //   isExpanded: true,
-                  //   hint: const Text(
-                  //     'Select day of the schedule',
-                  //     style: TextStyle(fontSize: 14),
-                  //   ),
-                  //   iconSize: 30,
-                  //   buttonHeight: 60,
-                  //   buttonPadding: const EdgeInsets.only(left: 20, right: 10),
-                  //   dropdownDecoration: BoxDecoration(
-                  //     // borderRadius: BorderRadius.circular(5.0),
-                  //     borderRadius: BorderRadius.circular(15),
-                  //   ),
-                  //   items: dayItems.map((item) => DropdownMenuItem<String>(
-                  //       child: Text(
-                  //         item,
-                  //         style: const TextStyle(
-                  //           fontSize: 14,
-                  //         ),
-                  //       ),
-                  //   )).toList(),
-                  //   validator: (value){
-                  //     if (value == null){
-                  //       return 'Please select a valid day.';
-                  //     }
-                  //   },
-                  //   onChanged: (value){
-                  //     // do something
-                  //   },
-                  //   onSaved: (value){
-                  //     day = value.toString();
-                  //   },
-                  // ),
-
-
                   child:TextFormField(
                     decoration: InputDecoration(
                         hintText: "Enter a day of schedule",
@@ -230,14 +170,36 @@ class _ScheduleForm extends State<ScheduleForm> {
                 // padding: const EdgeInsets.symmetric(vertical: 16.0),
                 padding: const EdgeInsets.all(20.0),
                 child: ElevatedButton(
-                  onPressed: () {
+                  onPressed: () async {
                     if (_formkey.currentState!.validate()) {
                       // print('schedule with title: ${title}, day: ${day}, start time: ${startTime}, and due time: ${dueTime} successfully added');
                       // if the form is valid, display a snackbar
+                      final response = await http.post(
+                        Uri.parse("https://notedote.herokuapp.com/weekly_schedule/add-schedule/"),
+                        headers: <String, String>{
+                          'Content-Type':'application/json; charset=UTF-8',
+                        },
+                        body: jsonEncode(<String, String>{
+                          'name': title,
+                          'day': day,
+                          'start_time': startTime,
+                          'due_time': dueTime,
+                        })
+                      );
+                      print(response);
+                      print(response.body);
+                      print(title);
+                      print(day);
+                      print(startTime);
+                      print(dueTime);
+
+
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(content: Text('Add Schedule Success')),
                       );
-                  }
+                    } else {
+                      print('Tidak valid');
+                    }
                   },
                   style: ElevatedButton.styleFrom(
                     primary: Colors.teal[200],
