@@ -1,5 +1,3 @@
-[![Release](https://github.com/joshste/NoteDote/actions/workflows/release.yml/badge.svg)](https://github.com/joshste/NoteDote/actions/workflows/release.yml)
-
 # NoteDote - F07
 Aplikasi pengatur jadwal, jurnal, dan motivasi dalam pandemi.
 
