@@ -6,9 +6,14 @@ import '/screens/profile_screen.dart';
 import '/screens/profile_edit_screen.dart';
 import '/screens/login.dart';
 import '/screens/weekly_schedule.dart';
+import '/screens/notes.dart';
+import 'package:projek_akhir_f07/models/notes_collection.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(ChangeNotifierProvider(
+    create: (_) => NotesCollection(),
+    child: const MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -34,6 +39,7 @@ class MyApp extends StatelessWidget {
             LoginPage.routeName: (ctx) => const LoginPage(),
             WeeklySchedule.routeName: (ctx) => const WeeklySchedule(),
             ScheduleForm.routeName: (ctx) => const ScheduleForm(),
+            NoteHome.routeName: (ctx) => const NoteHome(),
           },
           onGenerateRoute: (settings) {
             // ignore: avoid_print

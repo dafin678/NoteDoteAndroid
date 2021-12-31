@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:projek_akhir_f07/screens/notes.dart';
 import '../screens/profile_screen.dart';
 import '../screens/weekly_schedule.dart';
 
@@ -49,13 +50,14 @@ class MainDrawer extends StatelessWidget {
             Navigator.of(context).pushReplacementNamed('/');
           }),
           buildListTile('Notes', Icons.folder, () {
-            Navigator.of(context).pushReplacementNamed('/');
+            Navigator.of(context).pushReplacementNamed(NoteHome.routeName);
           }),
           buildListTile('Quotes', Icons.text_fields, () {
             Navigator.of(context).pushReplacementNamed('/');
           }),
           buildListTile('Weekly Schedule', Icons.calendar_today, () {
-            Navigator.of(context).pushReplacementNamed(WeeklySchedule.routeName);
+            Navigator.of(context)
+                .pushReplacementNamed(WeeklySchedule.routeName);
           }),
           buildListTile('Profile', Icons.person, () {
             Navigator.of(context).pushReplacementNamed(ProfileScreen.routeName);
