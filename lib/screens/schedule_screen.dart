@@ -3,6 +3,7 @@ import '../widgets/main_drawer.dart';
 import '../models/weekly_schedule_models.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'weekly_schedule.dart';
 
 class MondayScreen extends StatefulWidget {
   static const routeName = '/monday-screen';
@@ -16,14 +17,14 @@ class MondayScreen extends StatefulWidget {
 class _MondayScreen extends State<MondayScreen>{
 
   static List<WeeklySchedule> extractedData = [];
+  // late TextEditingController _controller;
 
-  Future<void> getData() async {
+  Future<List<WeeklySchedule>> getData() async {
     var client = http.Client();
     WeeklySchedule weeklyScheduleModel;
     const url = 'https://notedote.herokuapp.com/weekly_schedule/get-monday-schedule/';
 
     try {
-      // print('coba');
       var response = await client.get(Uri.parse(url));
       if (response.statusCode == 200){
         // print('success!');
@@ -31,11 +32,12 @@ class _MondayScreen extends State<MondayScreen>{
         var jsonString = response.body;
         var jsonRes = jsonDecode(jsonString);
         var jumlahData = jsonRes.length;
-        print(jumlahData);
+        // print(jumlahData);
+        extractedData = [];
         for (var i = 0; i < jumlahData; ++i){
           var jsonMap = json.decode(jsonString)[i];
-          print('isi json index ke - ${i}');
-          print(jsonMap);
+          // print('isi json index ke - ${i}');
+          // print(jsonMap);
           weeklyScheduleModel = WeeklySchedule.fromJson(jsonMap);
           extractedData.add(weeklyScheduleModel);
         }
@@ -44,41 +46,11 @@ class _MondayScreen extends State<MondayScreen>{
       }
     } catch (exception){
       // print(exception);
-      // return extractedData;
+      return extractedData;
     }
 
-    // return extractedData;
+    return extractedData;
   }
-
-  // String strDay(int intDay){
-  //   String res = '';
-  //
-  //   switch (intDay){
-  //     case 1:
-  //       res = "monday";
-  //       break;
-  //     case 2:
-  //       res = "tuesday";
-  //       break;
-  //     case 3:
-  //       res = "wednesday";
-  //       break;
-  //     case 4:
-  //       res = "thursday";
-  //       break;
-  //     case 5:
-  //       res = "friday";
-  //       break;
-  //     case 6:
-  //       res = "saturday";
-  //       break;
-  //     case 7:
-  //       res = "sunday";
-  //       break;
-  //
-  //     return res;
-  //   }
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -89,50 +61,79 @@ class _MondayScreen extends State<MondayScreen>{
           IconButton(
             icon: const Icon(Icons.home),
             onPressed: () {
-              Navigator.pop(context);
+              // Navigator.pop(context);
+              Navigator.popAndPushNamed(context, WeeklySchedules.routeName);
             },
           )
         ],
       ),
       drawer: const MainDrawer(),
-      body: Container(
-        child: FutureBuilder(
-          future: getData(),
-          builder: (context, snapshot){
-            if (snapshot.hasData){
-              return ListView.builder(
-                itemCount: extractedData.length,
-                itemBuilder: (context, index){
-                  var schedule = extractedData[index];
-                  return Container(
-                    height: 100,
-                    margin: const EdgeInsets.all(8),
-                    child: Flexible(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(
-                            schedule.fields.name,
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold
-                            ),
-                          ),
-                          // Text(
-                          //   schedule.fields.day
-                          // ),
-                          Text(
-                            schedule.fields.startTime
-                          ),
-                          Text(
-                            schedule.fields.dueTime
-                          )
-                        ],
+
+      body: FutureBuilder<List<WeeklySchedule>>(
+        future: getData(),
+        builder: (context, snapshot){
+          if (snapshot.hasData){
+            return ListView.builder(
+              itemCount: extractedData.length,
+              itemBuilder: (context, index){
+                var schedule = extractedData[index];
+                return Container(
+                  height: 80,
+                  margin: const EdgeInsets.all(8),
+                  padding: const EdgeInsets.all(10),
+                  color: Colors.grey[800],
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text(
+                        schedule.fields.name,
+                        style: const TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold
+                        ),
                       ),
-                    )
-                  );
-                },
-              );
+                      // Text(
+                      //   schedule.fields.day
+                      // ),
+                      Text(
+                          "Start Time: ${schedule.fields.startTime}"),
+                      Text(
+                          "End Time: ${schedule.fields.dueTime}")
+                    ],
+                  ),
+                );
+              },
+            );
+          } else {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+        },
+      ),
+
+              // body: new ListView.builder(
+              //   itemCount: extractedData == null ? 0 : extractedData.length,
+              //   itemBuilder: (BuildContext context, int index){
+              //     return new Container(
+              //       child: Column(
+              //         children: <Widget>[
+              //           Card(
+              //               child: Text(extractedData[index].fields.name,
+              //                 style: TextStyle(
+              //                   fontSize: 20, fontWeight: FontWeight.bold
+              //                 ),
+              //               ),
+              //           )
+              //         ],
+              //       ),
+              //     );
+              //
+              //     // return new Card(
+              //     //   child: new Text(extractedData[index].fields.name),
+              //     // );
+              //   },
+              // ),
 
               // return Column(
               //   children: extractedData.map((i) {
@@ -142,14 +143,7 @@ class _MondayScreen extends State<MondayScreen>{
               //   }),
               // )
 
-            } else {
-              return Center(
-                child: CircularProgressIndicator(),
-              );
-            }
-          },
-        ),
-      ),
+
 
       // body: Center(
       //   child: ElevatedButton(
@@ -175,13 +169,12 @@ class _TuesdayScreen extends State<TuesdayScreen>{
 
   static List<WeeklySchedule> extractedData = [];
 
-  Future<void> getData() async {
+  Future<List<WeeklySchedule>> getData() async {
     var client = http.Client();
     WeeklySchedule weeklyScheduleModel;
     const url = 'https://notedote.herokuapp.com/weekly_schedule/get-tuesday-schedule/';
 
     try {
-      // print('coba');
       var response = await client.get(Uri.parse(url));
       if (response.statusCode == 200){
         // print('success!');
@@ -189,11 +182,12 @@ class _TuesdayScreen extends State<TuesdayScreen>{
         var jsonString = response.body;
         var jsonRes = jsonDecode(jsonString);
         var jumlahData = jsonRes.length;
-        print(jumlahData);
+        // print(jumlahData);
+        extractedData = [];
         for (var i = 0; i < jumlahData; ++i){
           var jsonMap = json.decode(jsonString)[i];
-          print('isi json index ke - ${i}');
-          print(jsonMap);
+          // print('isi json index ke - ${i}');
+          // print(jsonMap);
           weeklyScheduleModel = WeeklySchedule.fromJson(jsonMap);
           extractedData.add(weeklyScheduleModel);
         }
@@ -202,10 +196,10 @@ class _TuesdayScreen extends State<TuesdayScreen>{
       }
     } catch (exception){
       // print(exception);
-      // return extractedData;
+      return extractedData;
     }
 
-    // return extractedData;
+    return extractedData;
   }
 
   @override
@@ -223,11 +217,47 @@ class _TuesdayScreen extends State<TuesdayScreen>{
         ],
       ),
       drawer: const MainDrawer(),
-      body: Center(
-        child: ElevatedButton(
-          child: const Text("Get Data Test"),
-          onPressed: getData,
-        ),
+      body: FutureBuilder<List<WeeklySchedule>>(
+        future: getData(),
+        builder: (context, snapshot){
+          if (snapshot.hasData){
+            return ListView.builder(
+              itemCount: extractedData.length,
+              itemBuilder: (context, index){
+                var schedule = extractedData[index];
+                return Container(
+                  height: 80,
+                  margin: const EdgeInsets.all(8),
+                  padding: const EdgeInsets.all(10),
+                  color: Colors.grey[800],
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text(
+                        schedule.fields.name,
+                        style: const TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold
+                        ),
+                      ),
+                      // Text(
+                      //   schedule.fields.day
+                      // ),
+                      Text(
+                          "Start Time: ${schedule.fields.startTime}"),
+                      Text(
+                          "End Time: ${schedule.fields.dueTime}")
+                    ],
+                  ),
+                );
+              },
+            );
+          } else {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+        },
       ),
     );
   }
@@ -247,13 +277,12 @@ class _WednesdayScreen extends State<WednesdayScreen>{
 
   static List<WeeklySchedule> extractedData = [];
 
-  Future<void> getData() async {
+  Future<List<WeeklySchedule>> getData() async {
     var client = http.Client();
     WeeklySchedule weeklyScheduleModel;
     const url = 'https://notedote.herokuapp.com/weekly_schedule/get-wednesday-schedule/';
 
     try {
-      // print('coba');
       var response = await client.get(Uri.parse(url));
       if (response.statusCode == 200){
         // print('success!');
@@ -261,11 +290,12 @@ class _WednesdayScreen extends State<WednesdayScreen>{
         var jsonString = response.body;
         var jsonRes = jsonDecode(jsonString);
         var jumlahData = jsonRes.length;
-        print(jumlahData);
+        // print(jumlahData);
+        extractedData = [];
         for (var i = 0; i < jumlahData; ++i){
           var jsonMap = json.decode(jsonString)[i];
-          print('isi json index ke - ${i}');
-          print(jsonMap);
+          // print('isi json index ke - ${i}');
+          // print(jsonMap);
           weeklyScheduleModel = WeeklySchedule.fromJson(jsonMap);
           extractedData.add(weeklyScheduleModel);
         }
@@ -274,10 +304,10 @@ class _WednesdayScreen extends State<WednesdayScreen>{
       }
     } catch (exception){
       // print(exception);
-      // return extractedData;
+      return extractedData;
     }
 
-    // return extractedData;
+    return extractedData;
   }
 
   @override
@@ -295,11 +325,47 @@ class _WednesdayScreen extends State<WednesdayScreen>{
         ],
       ),
       drawer: const MainDrawer(),
-      body: Center(
-        child: ElevatedButton(
-          child: const Text("Get Data Test"),
-          onPressed: getData,
-        ),
+      body: FutureBuilder<List<WeeklySchedule>>(
+        future: getData(),
+        builder: (context, snapshot){
+          if (snapshot.hasData){
+            return ListView.builder(
+              itemCount: extractedData.length,
+              itemBuilder: (context, index){
+                var schedule = extractedData[index];
+                return Container(
+                  height: 80,
+                  margin: const EdgeInsets.all(8),
+                  padding: const EdgeInsets.all(10),
+                  color: Colors.grey[800],
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text(
+                        schedule.fields.name,
+                        style: const TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold
+                        ),
+                      ),
+                      // Text(
+                      //   schedule.fields.day
+                      // ),
+                    Text(
+                        "Start Time: ${schedule.fields.startTime}"),
+                    Text(
+                        "End Time: ${schedule.fields.dueTime}")
+                    ],
+                  ),
+                );
+              },
+            );
+          } else {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+        },
       ),
     );
   }
@@ -319,13 +385,12 @@ class _ThursdayScreen extends State<ThursdayScreen>{
 
   static List<WeeklySchedule> extractedData = [];
 
-  Future<void> getData() async {
+  Future<List<WeeklySchedule>> getData() async {
     var client = http.Client();
     WeeklySchedule weeklyScheduleModel;
     const url = 'https://notedote.herokuapp.com/weekly_schedule/get-thursday-schedule/';
 
     try {
-      // print('coba');
       var response = await client.get(Uri.parse(url));
       if (response.statusCode == 200){
         // print('success!');
@@ -333,11 +398,12 @@ class _ThursdayScreen extends State<ThursdayScreen>{
         var jsonString = response.body;
         var jsonRes = jsonDecode(jsonString);
         var jumlahData = jsonRes.length;
-        print(jumlahData);
+        // print(jumlahData);
+        extractedData = [];
         for (var i = 0; i < jumlahData; ++i){
           var jsonMap = json.decode(jsonString)[i];
-          print('isi json index ke - ${i}');
-          print(jsonMap);
+          // print('isi json index ke - ${i}');
+          // print(jsonMap);
           weeklyScheduleModel = WeeklySchedule.fromJson(jsonMap);
           extractedData.add(weeklyScheduleModel);
         }
@@ -346,10 +412,10 @@ class _ThursdayScreen extends State<ThursdayScreen>{
       }
     } catch (exception){
       // print(exception);
-      // return extractedData;
+      return extractedData;
     }
 
-    // return extractedData;
+    return extractedData;
   }
 
   @override
@@ -367,11 +433,47 @@ class _ThursdayScreen extends State<ThursdayScreen>{
         ],
       ),
       drawer: const MainDrawer(),
-      body: Center(
-        child: ElevatedButton(
-          child: const Text("Get Data Test"),
-          onPressed: getData,
-        ),
+      body: FutureBuilder<List<WeeklySchedule>>(
+        future: getData(),
+        builder: (context, snapshot){
+          if (snapshot.hasData){
+            return ListView.builder(
+              itemCount: extractedData.length,
+              itemBuilder: (context, index){
+                var schedule = extractedData[index];
+                return Container(
+                  height: 80,
+                  margin: const EdgeInsets.all(8),
+                  padding: const EdgeInsets.all(10),
+                  color: Colors.grey[800],
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text(
+                        schedule.fields.name,
+                        style: const TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold
+                        ),
+                      ),
+                      // Text(
+                      //   schedule.fields.day
+                      // ),
+                      Text(
+                          "Start Time: ${schedule.fields.startTime}"),
+                      Text(
+                          "End Time: ${schedule.fields.dueTime}")
+                    ],
+                  ),
+                );
+              },
+            );
+          } else {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+        },
       ),
     );
   }
@@ -391,13 +493,12 @@ class _FridayScreen extends State<FridayScreen>{
 
   static List<WeeklySchedule> extractedData = [];
 
-  Future<void> getData() async {
+  Future<List<WeeklySchedule>> getData() async {
     var client = http.Client();
     WeeklySchedule weeklyScheduleModel;
     const url = 'https://notedote.herokuapp.com/weekly_schedule/get-friday-schedule/';
 
     try {
-      // print('coba');
       var response = await client.get(Uri.parse(url));
       if (response.statusCode == 200){
         // print('success!');
@@ -405,11 +506,12 @@ class _FridayScreen extends State<FridayScreen>{
         var jsonString = response.body;
         var jsonRes = jsonDecode(jsonString);
         var jumlahData = jsonRes.length;
-        print(jumlahData);
+        // print(jumlahData);
+        extractedData = [];
         for (var i = 0; i < jumlahData; ++i){
           var jsonMap = json.decode(jsonString)[i];
-          print('isi json index ke - ${i}');
-          print(jsonMap);
+          // print('isi json index ke - ${i}');
+          // print(jsonMap);
           weeklyScheduleModel = WeeklySchedule.fromJson(jsonMap);
           extractedData.add(weeklyScheduleModel);
         }
@@ -418,10 +520,10 @@ class _FridayScreen extends State<FridayScreen>{
       }
     } catch (exception){
       // print(exception);
-      // return extractedData;
+      return extractedData;
     }
 
-    // return extractedData;
+    return extractedData;
   }
 
   @override
@@ -439,11 +541,47 @@ class _FridayScreen extends State<FridayScreen>{
         ],
       ),
       drawer: const MainDrawer(),
-      body: Center(
-        child: ElevatedButton(
-          child: const Text("Get Data Test"),
-          onPressed: getData,
-        ),
+      body: FutureBuilder<List<WeeklySchedule>>(
+        future: getData(),
+        builder: (context, snapshot){
+          if (snapshot.hasData){
+            return ListView.builder(
+              itemCount: extractedData.length,
+              itemBuilder: (context, index){
+                var schedule = extractedData[index];
+                return Container(
+                  height: 80,
+                  margin: const EdgeInsets.all(8),
+                  padding: const EdgeInsets.all(10),
+                  color: Colors.grey[800],
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text(
+                        schedule.fields.name,
+                        style: const TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold
+                        ),
+                      ),
+                      // Text(
+                      //   schedule.fields.day
+                      // ),
+                      Text(
+                          "Start Time: ${schedule.fields.startTime}"),
+                      Text(
+                          "End Time: ${schedule.fields.dueTime}")
+                    ],
+                  ),
+                );
+              },
+            );
+          } else {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+        },
       ),
     );
   }
@@ -463,13 +601,12 @@ class _SaturdayScreen extends State<SaturdayScreen>{
 
   static List<WeeklySchedule> extractedData = [];
 
-  Future<void> getData() async {
+  Future<List<WeeklySchedule>> getData() async {
     var client = http.Client();
     WeeklySchedule weeklyScheduleModel;
     const url = 'https://notedote.herokuapp.com/weekly_schedule/get-saturday-schedule/';
 
     try {
-      // print('coba');
       var response = await client.get(Uri.parse(url));
       if (response.statusCode == 200){
         // print('success!');
@@ -477,11 +614,12 @@ class _SaturdayScreen extends State<SaturdayScreen>{
         var jsonString = response.body;
         var jsonRes = jsonDecode(jsonString);
         var jumlahData = jsonRes.length;
-        print(jumlahData);
+        // print(jumlahData);
+        extractedData = [];
         for (var i = 0; i < jumlahData; ++i){
           var jsonMap = json.decode(jsonString)[i];
-          print('isi json index ke - ${i}');
-          print(jsonMap);
+          // print('isi json index ke - ${i}');
+          // print(jsonMap);
           weeklyScheduleModel = WeeklySchedule.fromJson(jsonMap);
           extractedData.add(weeklyScheduleModel);
         }
@@ -490,10 +628,10 @@ class _SaturdayScreen extends State<SaturdayScreen>{
       }
     } catch (exception){
       // print(exception);
-      // return extractedData;
+      return extractedData;
     }
 
-    // return extractedData;
+    return extractedData;
   }
 
   @override
@@ -511,11 +649,47 @@ class _SaturdayScreen extends State<SaturdayScreen>{
         ],
       ),
       drawer: const MainDrawer(),
-      body: Center(
-        child: ElevatedButton(
-          child: const Text("Get Data Test"),
-          onPressed: getData,
-        ),
+      body: FutureBuilder<List<WeeklySchedule>>(
+        future: getData(),
+        builder: (context, snapshot){
+          if (snapshot.hasData){
+            return ListView.builder(
+              itemCount: extractedData.length,
+              itemBuilder: (context, index){
+                var schedule = extractedData[index];
+                return Container(
+                  height: 80,
+                  margin: const EdgeInsets.all(8),
+                  padding: const EdgeInsets.all(10),
+                  color: Colors.grey[800],
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text(
+                        schedule.fields.name,
+                        style: const TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold
+                        ),
+                      ),
+                      // Text(
+                      //   schedule.fields.day
+                      // ),
+                      Text(
+                          "Start Time: ${schedule.fields.startTime}"),
+                      Text(
+                          "End Time: ${schedule.fields.dueTime}")
+                    ],
+                  ),
+                );
+              },
+            );
+          } else {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+        },
       ),
     );
   }
@@ -535,13 +709,12 @@ class _SundayScreen extends State<SundayScreen>{
 
   static List<WeeklySchedule> extractedData = [];
 
-  Future<void> getData() async {
+  Future<List<WeeklySchedule>> getData() async {
     var client = http.Client();
     WeeklySchedule weeklyScheduleModel;
     const url = 'https://notedote.herokuapp.com/weekly_schedule/get-sunday-schedule/';
 
     try {
-      // print('coba');
       var response = await client.get(Uri.parse(url));
       if (response.statusCode == 200){
         // print('success!');
@@ -549,11 +722,12 @@ class _SundayScreen extends State<SundayScreen>{
         var jsonString = response.body;
         var jsonRes = jsonDecode(jsonString);
         var jumlahData = jsonRes.length;
-        print(jumlahData);
+        // print(jumlahData);
+        extractedData = [];
         for (var i = 0; i < jumlahData; ++i){
           var jsonMap = json.decode(jsonString)[i];
-          print('isi json index ke - ${i}');
-          print(jsonMap);
+          // print('isi json index ke - ${i}');
+          // print(jsonMap);
           weeklyScheduleModel = WeeklySchedule.fromJson(jsonMap);
           extractedData.add(weeklyScheduleModel);
         }
@@ -562,10 +736,10 @@ class _SundayScreen extends State<SundayScreen>{
       }
     } catch (exception){
       // print(exception);
-      // return extractedData;
+      return extractedData;
     }
 
-    // return extractedData;
+    return extractedData;
   }
 
   @override
@@ -583,11 +757,47 @@ class _SundayScreen extends State<SundayScreen>{
         ],
       ),
       drawer: const MainDrawer(),
-      body: Center(
-        child: ElevatedButton(
-          child: const Text("Get Data Test"),
-          onPressed: getData,
-        ),
+      body: FutureBuilder<List<WeeklySchedule>>(
+        future: getData(),
+        builder: (context, snapshot){
+          if (snapshot.hasData){
+            return ListView.builder(
+              itemCount: extractedData.length,
+              itemBuilder: (context, index){
+                var schedule = extractedData[index];
+                return Container(
+                  height: 80,
+                  margin: const EdgeInsets.all(8),
+                  padding: const EdgeInsets.all(10),
+                  color: Colors.grey[800],
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text(
+                        schedule.fields.name,
+                        style: const TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold
+                        ),
+                      ),
+                      // Text(
+                      //   schedule.fields.day
+                      // ),
+                      Text(
+                          "Start Time: ${schedule.fields.startTime}"),
+                      Text(
+                          "End Time: ${schedule.fields.dueTime}")
+                    ],
+                  ),
+                );
+              },
+            );
+          } else {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+        },
       ),
     );
   }

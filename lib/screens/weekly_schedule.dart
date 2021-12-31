@@ -535,13 +535,6 @@ class DayItem extends StatelessWidget {
         Navigator.of(ctx).pushNamed(SundayScreen.routeName);
         break;
     }
-    // Navigator.of(ctx).pushNamed(
-    //   // CategoryMealsScreen.routeName,
-    //   // arguments: {
-    //   //   'id': id,
-    //   //   'title': title,
-    //   },
-    // );
   }
 
   @override
