@@ -79,7 +79,7 @@ class Repository with ChangeNotifier {
 
 
   fetchTasks() async {
-    final url = 'https://notedote.herokuapp.com/api/journal/?format=json';
+    const url = 'https://notedote.herokuapp.com/api/journal/?format=json';
     final response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
       var data = json.decode(response.body) as List;

@@ -65,7 +65,7 @@ class JournalListState extends State<JournalList> {
   @override
   Widget build(BuildContext context) {
     final todoP = Provider.of<Repository>(context);
-    Repository repository = Repository();
+    // Repository repository = Repository();
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 90,

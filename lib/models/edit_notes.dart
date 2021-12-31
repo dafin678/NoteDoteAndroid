@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 
 class NoteScreen extends StatefulWidget {
   final Notes _notes;
-  NoteScreen({Key? key, notes}) : _notes = notes;
+  const NoteScreen({Key? key, notes}) : _notes = notes, super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -47,17 +47,16 @@ class NoteScreenState extends State<NoteScreen> {
       body: Column(
         children: <Widget>[
           Expanded(
-            child: Container(
-                child: TextField(
+            child: TextField(
               controller: bodyController,
               keyboardType: TextInputType.multiline,
               maxLines: null,
               expands: true,
               decoration: const InputDecoration(
-                  hintText: 'Write your note here',
-                  border: InputBorder.none,
-                  contentPadding: EdgeInsets.all(20)),
-            )),
+              hintText: 'Write your note here',
+              border: InputBorder.none,
+              contentPadding: EdgeInsets.all(20)),
+            ),
           )
         ],
       ),

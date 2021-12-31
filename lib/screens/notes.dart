@@ -37,7 +37,7 @@ class _NoteHome extends State<NoteHome> {
               MaterialPageRoute(builder: (context) => NoteScreen(notes: note)))
         },
       ),
-      drawer: MainDrawer(),
+      drawer: const MainDrawer(),
     );
   }
 

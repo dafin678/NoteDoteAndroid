@@ -100,7 +100,7 @@ class _ScheduleForm extends State<ScheduleForm> {
                   padding: const EdgeInsets.all(8.0),
                   child:TextFormField(
                     decoration: InputDecoration(
-                        hintText: "Enter a day of schedule",
+                        hintText: "Enter a valid integer for day, 1:monday, 2:tuesday, ... , 7:sunday",
                         labelText: "Day of schedule",
                         icon: const Icon(Icons.calendar_today),
                         border: OutlineInputBorder(
@@ -125,7 +125,7 @@ class _ScheduleForm extends State<ScheduleForm> {
                   child:TextFormField(
                     keyboardType: TextInputType.datetime,
                     decoration: InputDecoration(
-                        hintText: "Enter a start time of schedule",
+                        hintText: "Enter a start time of schedule (Format: HH:MM:SS)",
                         labelText: "Start Time of schedule",
                         icon: const Icon(Icons.watch_later),
                         border: OutlineInputBorder(
@@ -150,7 +150,7 @@ class _ScheduleForm extends State<ScheduleForm> {
                   child:TextFormField(
                     keyboardType: TextInputType.datetime,
                     decoration: InputDecoration(
-                        hintText: "Enter a end time of schedule",
+                        hintText: "Enter a end time of schedule (Format: HH:MM:SS)",
                         labelText: "End Time of schedule",
                         icon: const Icon(Icons.watch_later_outlined),
                         border: OutlineInputBorder(
@@ -174,7 +174,7 @@ class _ScheduleForm extends State<ScheduleForm> {
                     if (_formkey.currentState!.validate()) {
                       // print('schedule with title: ${title}, day: ${day}, start time: ${startTime}, and due time: ${dueTime} successfully added');
                       // if the form is valid, display a snackbar
-                      final response = await http.post(
+                      await http.post(
                         Uri.parse("https://notedote.herokuapp.com/weekly_schedule/add-schedule/"),
                         headers: <String, String>{
                           'Content-Type':'application/json; charset=UTF-8',
@@ -186,19 +186,20 @@ class _ScheduleForm extends State<ScheduleForm> {
                           'due_time': dueTime,
                         })
                       );
-                      print(response);
-                      print(response.body);
-                      print(title);
-                      print(day);
-                      print(startTime);
-                      print(dueTime);
+                      // print(response);
+                      // print(response.body);
+                      // print(title);
+                      // print(day);
+                      // print(startTime);
+                      // print(dueTime);
 
 
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(content: Text('Add Schedule Success')),
                       );
+                      Navigator.popAndPushNamed(context, WeeklySchedules.routeName);
                     } else {
-                      print('Tidak valid');
+                      // print('Tidak valid');
                     }
                   },
                   style: ElevatedButton.styleFrom(
