@@ -75,7 +75,7 @@ class _UpdateJournalState extends State<UpdateJournal> {
                     primary: Colors.white,)),
 
               TextButton(
-                    // ignore: prefer_const_constructors
+                    // prefer_const_constructors
                     onPressed:() async{
                       bool response = await repository.deleteData(int.parse(args[0]));
                       if(response == true){

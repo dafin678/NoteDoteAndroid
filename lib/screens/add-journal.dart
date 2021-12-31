@@ -1,6 +1,6 @@
-// ignore: file_names
-// ignore: file_names
-// ignore: file_names
+//  file_names
+// file_names
+// file_names
 
 // ignore_for_file: import_of_legacy_library_into_null_safe, avoid_unnecessary_containers, avoid_print, file_names, unused_import, prefer_const_constructors
 
@@ -56,7 +56,7 @@ class _AddJournalState extends State<AddJournal> {
                   Navigator.of(context).popAndPushNamed('/home');
                 }
                 else{
-                  // ignore: avoid_print
+                  // avoid_print
                   print("ADA ERROR");
                 }  
               }, 
