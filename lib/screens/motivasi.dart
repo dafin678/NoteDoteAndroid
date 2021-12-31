@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:projek_akhir_f07/models/motivasiModels.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'dart:async';
 
 void main() {
   runApp(const MyApp());
@@ -57,6 +56,7 @@ class Motivasiscreen extends State<Motivasisc> {
       }
       return extractData;
     } catch (error) {
+      // ignore: avoid_print
       print(error);
     }
   }
@@ -90,14 +90,14 @@ class Motivasiscreen extends State<Motivasisc> {
                     "To : ${extractData[index].fields.to} \n Pesan : ${extractData[index].fields.pesan} \n "),
                 onTap: () {},
                 trailing: IconButton(
-                  icon: Icon(Icons.delete),
+                  icon: const Icon(Icons.delete),
                   onPressed: () {},
                 ));
           }),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(context,
-              MaterialPageRoute(builder: (context) => MyCustomForm5()));
+              MaterialPageRoute(builder: (context) => const MyCustomForm5()));
         },
         tooltip: 'Tambah Pesan',
       ),
@@ -129,12 +129,8 @@ class MyCustomFormState extends State<MyCustomForm5> {
 
   void postData(String to, String pesan) async {
     try {
-      const url = 'https://notedote.herokuapp.com/motivasi/';
-      final response = await http.post(Uri.parse(url), body: {
-        "to": to,
-        "pesan": pesan,
-      });
       setState(() {});
+      // ignore: empty_catches
     } catch (er) {}
   }
 
