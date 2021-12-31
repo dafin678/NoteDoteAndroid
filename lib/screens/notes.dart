@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:projek_akhir_f07/models/notes_collection.dart';
 import 'package:projek_akhir_f07/models/notes_model.dart';
 import 'package:projek_akhir_f07/models/edit_notes.dart';
+import 'package:projek_akhir_f07/widgets/main_drawer.dart';
 import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
 
@@ -23,19 +24,21 @@ class _NoteHome extends State<NoteHome> {
   Widget build(BuildContext context) {
     Notes note;
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('Notes'),
-        ),
-        body: _buildNotesList(),
-        floatingActionButton: FloatingActionButton(
-          child: const Icon(Icons.add),
-          onPressed: () => {
-            note = Notes(id: uuid.v4()),
-            Provider.of<NotesCollection>(context, listen: false).addNotes(note),
-            Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => NoteScreen(notes: note)))
-          },
-        ));
+      appBar: AppBar(
+        title: const Text('Notes'),
+      ),
+      body: _buildNotesList(),
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.add),
+        onPressed: () => {
+          note = Notes(id: uuid.v4()),
+          Provider.of<NotesCollection>(context, listen: false).addNotes(note),
+          Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => NoteScreen(notes: note)))
+        },
+      ),
+      drawer: MainDrawer(),
+    );
   }
 
   Widget _buildNotesList() {
