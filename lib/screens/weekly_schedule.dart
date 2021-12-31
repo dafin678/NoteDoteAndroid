@@ -273,7 +273,7 @@ class WeeklySchedules extends StatefulWidget {
 
 class _WeeklyScheduleState extends State<WeeklySchedules> {
 
-  late List data;
+  // late List data;
   // late Future<WeeklySchedule> _weeklyScheduleModel;
   static List<WeeklySchedule> extractedData = [];
   // late TextEditingController _controller;
