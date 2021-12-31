@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
             ProfileScreen.routeName: (ctx) => const ProfileScreen(),
             ProfileEditScreen.routeName: (ctx) => const ProfileEditScreen(),
             LoginPage.routeName: (ctx) => const LoginPage(),
-            WeeklySchedule.routeName: (ctx) => const WeeklySchedule(),
+            WeeklySchedules.routeName: (ctx) => const WeeklySchedules(),
             ScheduleForm.routeName: (ctx) => const ScheduleForm(),
             Task.routeName: (ctx) => const Task(title: 'Task',),
           },

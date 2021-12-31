@@ -26,7 +26,7 @@ class TaskState extends State<Task> {
       try {
         extractedData = [];
         final response = await http.get(Uri.parse(url));
-        // print(response.body);
+        print(response.body);
         final dataJson = jsonDecode(response.body);
         for (var i in dataJson) {
           Fields fields = Fields(
