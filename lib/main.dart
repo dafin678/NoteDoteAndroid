@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:projek_akhir_f07/screens/journal_screen.dart';
+import 'package:projek_akhir_f07/screens/motivasi.dart';
 import 'package:provider/provider.dart';
 import 'package:projek_akhir_f07/cookie_request.dart';
 import '/widgets/main_drawer.dart';
@@ -9,6 +11,7 @@ import '/screens/weekly_schedule.dart';
 import '/screens/notes.dart';
 import 'package:projek_akhir_f07/models/notes_collection.dart';
 import '/screens/task_screen.dart';
+import '/screens/schedule_screen.dart';
 
 void main() {
   runApp(ChangeNotifierProvider(
@@ -44,6 +47,18 @@ class MyApp extends StatelessWidget {
             Task.routeName: (ctx) => const Task(
                   title: 'Task',
                 ),
+            Task.routeName: (ctx) => const Task(
+                  title: 'Task',
+                ),
+            MondayScreen.routeName: (ctx) => const MondayScreen(),
+            TuesdayScreen.routeName: (ctx) => const TuesdayScreen(),
+            WednesdayScreen.routeName: (ctx) => const WednesdayScreen(),
+            ThursdayScreen.routeName: (ctx) => const ThursdayScreen(),
+            FridayScreen.routeName: (ctx) => const FridayScreen(),
+            SaturdayScreen.routeName: (ctx) => const SaturdayScreen(),
+            SundayScreen.routeName: (ctx) => const SundayScreen(),
+            PersonalJournal.routeName: (ctx) => PersonalJournal(),
+            Motivasisc.routeName: (ctx) => const Motivasisc(),
           },
           onGenerateRoute: (settings) {
             // ignore: avoid_print

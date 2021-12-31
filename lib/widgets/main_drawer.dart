@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:projek_akhir_f07/screens/notes.dart';
+import 'package:projek_akhir_f07/screens/motivasi.dart';
 import '../screens/profile_screen.dart';
 import '../screens/weekly_schedule.dart';
 import '../screens/task_screen.dart';
@@ -54,7 +55,7 @@ class MainDrawer extends StatelessWidget {
             Navigator.of(context).pushReplacementNamed(NoteHome.routeName);
           }),
           buildListTile('Quotes', Icons.text_fields, () {
-            Navigator.of(context).pushReplacementNamed('/');
+            Navigator.of(context).pushReplacementNamed(Motivasisc.routeName);
           }),
           buildListTile('Weekly Schedule', Icons.calendar_today, () {
             Navigator.of(context)

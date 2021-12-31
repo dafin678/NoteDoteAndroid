@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:async';
 import '../models/weekly_schedule_models.dart';
+import 'schedule_screen.dart';
 
 class ScheduleForm extends StatefulWidget {
   static const routeName = '/add-schedule';
@@ -431,12 +432,31 @@ class _WeeklyScheduleState extends State<WeeklySchedules> {
         ],
       ),
       drawer: const MainDrawer(),
-      body: Center(
-        child: ElevatedButton(
-          child: const Text("Get Data Test"),
-          onPressed: getData,
+      body: GridView(
+        padding: const EdgeInsets.all((25)),
+        children: dayCategories
+            .map(
+              (catData) => DayItem(
+            catData.name,
+            catData.color,
+          ),
+        )
+            .toList(),
+
+        gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+          maxCrossAxisExtent: 200,
+          childAspectRatio: 3 / 2,
+          crossAxisSpacing: 20,
+          mainAxisSpacing: 20,
         ),
       ),
+
+      // body: Center(
+      //   child: ElevatedButton(
+      //     child: const Text("Get Data Test"),
+      //     onPressed: getData,
+      //   ),
+      // ),
 
       // body: Container(
       //   child: FutureBuilder<WeeklySchedule>(
@@ -454,6 +474,100 @@ class _WeeklyScheduleState extends State<WeeklySchedules> {
       //   ),
       // ),
 
+    );
+  }
+
+}
+
+class Day {
+  final String name;
+  final Color color;
+
+  const Day({
+    required this.name,
+    required this.color,
+  });
+}
+
+const dayCategories = [
+  Day(name: 'Monday', color: Colors.purple),
+  Day(name: 'Tuesday', color: Colors.red),
+  Day(name: 'Wednesday', color: Colors.orange),
+  Day(name: 'Thursday', color: Colors.amber),
+  Day(name: 'Friday', color: Colors.blue),
+  Day(name: 'Saturday', color: Colors.green),
+  Day(name: 'Sunday', color: Colors.lightBlue),
+];
+
+class DayItem extends StatelessWidget {
+  final String name;
+  final Color color;
+
+  const DayItem(this.name, this.color, {Key? key}) : super(key: key);
+
+  void selectCategory(BuildContext ctx, String nameDay) {
+    switch (nameDay){
+      case "Monday":
+        Navigator.of(ctx).pushNamed(MondayScreen.routeName);
+        break;
+
+      case "Tuesday":
+        Navigator.of(ctx).pushNamed(TuesdayScreen.routeName);
+        break;
+
+      case "Wednesday":
+        Navigator.of(ctx).pushNamed(WednesdayScreen.routeName);
+        break;
+
+      case "Thursday":
+        Navigator.of(ctx).pushNamed(ThursdayScreen.routeName);
+        break;
+
+      case "Friday":
+        Navigator.of(ctx).pushNamed(FridayScreen.routeName);
+        break;
+
+      case "Saturday":
+        Navigator.of(ctx).pushNamed(SaturdayScreen.routeName);
+        break;
+
+      case "Sunday":
+        Navigator.of(ctx).pushNamed(SundayScreen.routeName);
+        break;
+    }
+    // Navigator.of(ctx).pushNamed(
+    //   // CategoryMealsScreen.routeName,
+    //   // arguments: {
+    //   //   'id': id,
+    //   //   'title': title,
+    //   },
+    // );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () => selectCategory(context, name),
+      splashColor: Theme.of(context).primaryColor,
+      borderRadius: BorderRadius.circular(15),
+      child: Container(
+        padding: const EdgeInsets.all(15),
+        child: Text(
+          name,
+          style: Theme.of(context).textTheme.headline6,
+        ),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              color.withOpacity(0.7),
+              color,
+            ],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+          borderRadius: BorderRadius.circular(15),
+        ),
+      ),
     );
   }
 
