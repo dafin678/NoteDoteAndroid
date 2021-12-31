@@ -3,6 +3,7 @@ import '../widgets/main_drawer.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:async';
+import '../models/weekly_schedule_models.dart';
 
 class ScheduleForm extends StatefulWidget {
   static const routeName = '/add-schedule';
@@ -18,6 +19,17 @@ class _ScheduleForm extends State<ScheduleForm> {
   final _formkey = GlobalKey<FormState>();
   // static const Color dark = Color(0xffffff);
 
+  List<String> dayItems = [
+    'monday',
+    'tuesday',
+    'wednesday',
+    'friday',
+    'saturday',
+    'sunday',
+  ];
+
+  final daySelected = TextEditingController();
+
   var title = '';
   var day = '';
   var startTime = '';
@@ -32,7 +44,7 @@ class _ScheduleForm extends State<ScheduleForm> {
         foregroundColor: Colors.deepPurple[900],
         actions: <Widget>[
           IconButton(
-            icon: const Icon(Icons.list),
+            icon: const Icon(Icons.assignment),
             onPressed: () {
               Navigator.pop(context);
             },
@@ -50,13 +62,15 @@ class _ScheduleForm extends State<ScheduleForm> {
               Padding(
                 padding: const EdgeInsets.all(20.0),
                 // padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
-                child:Text('Add Schedule in here', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25, color: Colors.teal[200])),
+                child:Text('Add Schedule in here', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25, color: Colors.teal[200]),
+                  textAlign: TextAlign.center,),
               ),
               const Padding(
                 padding: EdgeInsets.all(8.0),
                 child: Text('Name: '),
               ),
               Padding(
+              // SizedBox(
                 padding: const EdgeInsets.all(8.0),
                 child:TextFormField(
                   autofocus: true,
@@ -83,6 +97,66 @@ class _ScheduleForm extends State<ScheduleForm> {
               ),
               Padding(
                   padding: const EdgeInsets.all(8.0),
+
+                  // child: SizedBox(
+                  //   height: 20.0,
+                  //   child: DropDownField(
+                  //     controller: daySelected,
+                  //     hintText: "Select day of schedule",
+                  //     enabled: true,
+                  //     items: dayItems,
+                  //     onValueChanged: (value){
+                  //       setState(() {
+                  //         day = value;
+                  //       });
+                  //     },
+                  //   ),
+                  // )
+
+
+                  // child: DropdownButtonFormField2(
+                  //   decoration: InputDecoration(
+                  //     isDense: true,
+                  //     contentPadding: EdgeInsets.zero,
+                  //     border: OutlineInputBorder(
+                  //       // borderRadius: BorderRadius.circular(5.0),
+                  //       borderRadius: BorderRadius.circular(15),
+                  //     ),
+                  //   ),
+                  //   isExpanded: true,
+                  //   hint: const Text(
+                  //     'Select day of the schedule',
+                  //     style: TextStyle(fontSize: 14),
+                  //   ),
+                  //   iconSize: 30,
+                  //   buttonHeight: 60,
+                  //   buttonPadding: const EdgeInsets.only(left: 20, right: 10),
+                  //   dropdownDecoration: BoxDecoration(
+                  //     // borderRadius: BorderRadius.circular(5.0),
+                  //     borderRadius: BorderRadius.circular(15),
+                  //   ),
+                  //   items: dayItems.map((item) => DropdownMenuItem<String>(
+                  //       child: Text(
+                  //         item,
+                  //         style: const TextStyle(
+                  //           fontSize: 14,
+                  //         ),
+                  //       ),
+                  //   )).toList(),
+                  //   validator: (value){
+                  //     if (value == null){
+                  //       return 'Please select a valid day.';
+                  //     }
+                  //   },
+                  //   onChanged: (value){
+                  //     // do something
+                  //   },
+                  //   onSaved: (value){
+                  //     day = value.toString();
+                  //   },
+                  // ),
+
+
                   child:TextFormField(
                     decoration: InputDecoration(
                         hintText: "Enter a day of schedule",
@@ -187,35 +261,160 @@ class _ScheduleForm extends State<ScheduleForm> {
 
 
 
-class WeeklySchedule extends StatefulWidget {
+class WeeklySchedules extends StatefulWidget {
   static const routeName = '/weekly-schedule';
 
-  const WeeklySchedule({Key? key}) : super(key: key);
+  const WeeklySchedules({Key? key}) : super(key: key);
 
   @override
   _WeeklyScheduleState createState() => _WeeklyScheduleState();
+
 }
 
-class _WeeklyScheduleState extends State<WeeklySchedule> {
+class _WeeklyScheduleState extends State<WeeklySchedules> {
 
-  late List data;
+  // late List data;
+  // late Future<WeeklySchedule> _weeklyScheduleModel;
+  static List<WeeklySchedule> extractedData = [];
+  // late TextEditingController _controller;
+  //
+  // static fetchData() async {
+  //   const url = 'https://notedote.herokuapp.com/weekly_schedule/get_all_schedule/';
+  //   // const url = 'https://notedote.herokuapp.com/tasks/get_all_tasks';
+  //
+  //   try {
+  //     extractedData = [];
+  //     final response = await http.get(Uri.parse(url));
+  //     // print(response);
+  //     print(response.body);
+  //
+  //
+  //     final dataJson = jsonDecode(response.body);
+  //     for (var i in dataJson){
+  //       if (i["fields"]["name"] != "NULL" && i["fields"]["day"] != "NULL" && i["fields"]["startTime"] != "NULL" && i["fields"]["dueTime"] != "NULL") {
+  //       print('masuk sini');
+  //       if (i["fields"]["name"] == null) print('name null');
+  //       if (i["fields"]["day"] == null) print('day null');
+  //       if (i["fields"]["startTime"] == null) print('startTime null');
+  //       if (i["fields"]["dueTime"] == null) print('dueTime null');
+  //         Fields fields = Fields(
+  //             // user: i["fields"]["user"],
+  //             name: i["fields"]["name"],
+  //             day: i["fields"]["day"],
+  //             startTime: i["fields"]["startTime"],
+  //             dueTime: i["fields"]["dueTime"]);
+  //         print('fields terbuat');
+  //         WeeklySchedule schedule =
+  //             WeeklySchedule(model: i["model"], pk: i["pk"], fields: fields);
+  //         extractedData.add(schedule);
+  //         print('terbuat ');
+  //       }
+  //     }
+  //
+  //     return extractedData;
+  //   } catch (error){
+  //     print('ada error');
+  //     print(error);
+  //   }
+  // }
+  //
+  // @override
+  // void didChangeDependencies() {
+  //   super.didChangeDependencies();
+  //   setState(() {
+  //     fetchData();
+  //   });
+  // }
+  //
+  // @override
+  // void initState(){
+  //   // _weeklyScheduleModel = getData();
+  //   super.initState();
+  //   _controller = TextEditingController();
+  // }
 
-  Future<String> getData() async {
-    var response = await http.get(
-        // Uri.encodeFull("https://jsonplaceholder.typicode.com/posts"),
-        Uri.parse("https://jsonplaceholder.typicode.com/posts"),
-        headers: {
-          "Accept": "application/json"
+  // Future<String> getData() async {
+  //   var response = await http.get(
+  //       // Uri.encodeFull("https://jsonplaceholder.typicode.com/posts"),
+  //       // Uri.parse("https://jsonplaceholder.typicode.com/posts"),
+  //       Uri.parse(jsonDecode('https://notedote.herokuapp.com/weekly_schedule/get_all_schedule/')), // ubah pakai json schedule list dari django
+  //       headers: {
+  //         "Accept": "application/json"
+  //       }
+  //   );
+  //   print(response.body);
+  //
+  //   data = json.decode(response.body);
+  //   // print(data);
+  //   // print(data[1]["title"]);
+  //
+  //   // var response = await http.get(Uri.parse('https://notedote.herokuapp.com/weekly_schedule/get_all_schedule/'));
+  //   //
+  //   // final items = json.decode(response.body).cast<Map<String,dynamic>>();
+  //   // List<String> list_schedule = items.map<String>((json){
+  //   //   // return String.fromJson(json);
+  //   // }).toList();
+  //
+  //   return "Success!";
+  // }
+
+  // Future<WeeklySchedule> getData() async {
+  //   var client = http.Client();
+  //   var weeklyScheduleModel;
+  //   const url = 'https://notedote.herokuapp.com/weekly_schedule/get_all_schedule/';
+  //
+  //   try {
+  //     print('coba');
+  //     var response = await client.get(Uri.parse(url));
+  //     if (response.statusCode == 200){
+  //       print('success!');
+  //       print(response.body);
+  //       var jsonString = response.body;
+  //       var jsonMap = json.decode(jsonString);
+  //
+  //       weeklyScheduleModel = WeeklySchedule.fromJson(jsonMap);
+  //     }
+  //   } catch (Exception){
+  //     print('di sini');
+  //     return weeklyScheduleModel;
+  //   }
+  //
+  //   print('di sini');
+  //   return weeklyScheduleModel;
+  // }
+
+  Future<void> getData() async {
+    var client = http.Client();
+    WeeklySchedule weeklyScheduleModel;
+    const url = 'https://notedote.herokuapp.com/weekly_schedule/get_all_schedule/';
+
+    try {
+      // print('coba');
+      var response = await client.get(Uri.parse(url));
+      if (response.statusCode == 200){
+        // print('success!');
+        // print(response.body);
+        var jsonString = response.body;
+        var jsonRes = jsonDecode(jsonString);
+        var jumlahData = jsonRes.length;
+        // print(jumlahData);
+        for (var i = 0; i < jumlahData; ++i){
+          var jsonMap = json.decode(jsonString)[i];
+          // print('isi json index ke - ${i}');
+          // print(jsonMap);
+          weeklyScheduleModel = WeeklySchedule.fromJson(jsonMap);
+          extractedData.add(weeklyScheduleModel);
         }
-    );
-    // print(response.body);
 
-    data = json.decode(response.body);
-    // print(data[1]["title"]);
 
-    return "Success!";
+      }
+    } catch (exception){
+      // print(exception);
+      // return extractedData;
+    }
+
+    // return extractedData;
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -238,6 +437,23 @@ class _WeeklyScheduleState extends State<WeeklySchedule> {
           onPressed: getData,
         ),
       ),
+
+      // body: Container(
+      //   child: FutureBuilder<WeeklySchedule>(
+      //     future: _weeklyScheduleModel,
+      //     builder: (context, snapshot){
+      //       if (snapshot.hasData){
+      //         return ListView.builder(
+      //           // itemCount: snapshot.data,
+      //           itemBuilder: (context, index){
+      //             var
+      //           },
+      //         )
+      //       }
+      //     },
+      //   ),
+      // ),
+
     );
   }
 

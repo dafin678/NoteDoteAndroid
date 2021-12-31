@@ -8,6 +8,7 @@ import '/screens/login.dart';
 import '/screens/weekly_schedule.dart';
 import '/screens/notes.dart';
 import 'package:projek_akhir_f07/models/notes_collection.dart';
+import '/screens/task_screen.dart';
 
 void main() {
   runApp(ChangeNotifierProvider(
@@ -30,16 +31,19 @@ class MyApp extends StatelessWidget {
           title: 'NoteDote',
           debugShowCheckedModeBanner: false,
           // initialRoute: LoginPage.routeName, // default is '/'
-          initialRoute: WeeklySchedule.routeName, // default is '/'
+          initialRoute: LoginPage.routeName, // default is '/'
           theme: ThemeData.dark(),
           routes: {
             '/': (ctx) => const MyHomePage(title: 'NoteDote'),
             ProfileScreen.routeName: (ctx) => const ProfileScreen(),
             ProfileEditScreen.routeName: (ctx) => const ProfileEditScreen(),
             LoginPage.routeName: (ctx) => const LoginPage(),
-            WeeklySchedule.routeName: (ctx) => const WeeklySchedule(),
+            WeeklySchedules.routeName: (ctx) => const WeeklySchedules(),
             ScheduleForm.routeName: (ctx) => const ScheduleForm(),
             NoteHome.routeName: (ctx) => const NoteHome(),
+            Task.routeName: (ctx) => const Task(
+                  title: 'Task',
+                ),
           },
           onGenerateRoute: (settings) {
             // ignore: avoid_print
@@ -67,6 +71,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: Text(widget.title),
       ),

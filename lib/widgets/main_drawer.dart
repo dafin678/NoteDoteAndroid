@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:projek_akhir_f07/screens/notes.dart';
 import '../screens/profile_screen.dart';
 import '../screens/weekly_schedule.dart';
+import '../screens/task_screen.dart';
 
 class MainDrawer extends StatelessWidget {
   const MainDrawer({Key? key}) : super(key: key);
@@ -44,7 +45,7 @@ class MainDrawer extends StatelessWidget {
             height: 20,
           ),
           buildListTile('Dashboard', Icons.house, () {
-            Navigator.of(context).pushReplacementNamed('/');
+            Navigator.of(context).pushReplacementNamed(Task.routeName);
           }),
           buildListTile('Personal Journal', Icons.laptop, () {
             Navigator.of(context).pushReplacementNamed('/');
@@ -57,7 +58,7 @@ class MainDrawer extends StatelessWidget {
           }),
           buildListTile('Weekly Schedule', Icons.calendar_today, () {
             Navigator.of(context)
-                .pushReplacementNamed(WeeklySchedule.routeName);
+                .pushReplacementNamed(WeeklySchedules.routeName);
           }),
           buildListTile('Profile', Icons.person, () {
             Navigator.of(context).pushReplacementNamed(ProfileScreen.routeName);
