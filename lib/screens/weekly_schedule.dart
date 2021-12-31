@@ -502,13 +502,48 @@ const dayCategories = [
 class DayItem extends StatelessWidget {
   final String name;
   final Color color;
+  // static List<WeeklySchedule> extractedData = [];
 
   const DayItem(this.name, this.color, {Key? key}) : super(key: key);
+
+  // Future<void> getData() async {
+  //   var client = http.Client();
+  //   WeeklySchedule weeklyScheduleModel;
+  //   const url = 'https://notedote.herokuapp.com/weekly_schedule/get-monday-schedule/';
+  //
+  //   try {
+  //     // print('coba');
+  //     var response = await client.get(Uri.parse(url));
+  //     if (response.statusCode == 200){
+  //       // print('success!');
+  //       // print(response.body);
+  //       var jsonString = response.body;
+  //       var jsonRes = jsonDecode(jsonString);
+  //       var jumlahData = jsonRes.length;
+  //       print(jumlahData);
+  //       for (var i = 0; i < jumlahData; ++i){
+  //         var jsonMap = json.decode(jsonString)[i];
+  //         print('isi json index ke - ${i}');
+  //         print(jsonMap);
+  //         weeklyScheduleModel = WeeklySchedule.fromJson(jsonMap);
+  //         extractedData.add(weeklyScheduleModel);
+  //       }
+  //
+  //
+  //     }
+  //   } catch (exception){
+  //     // print(exception);
+  //     // return extractedData;
+  //   }
+  //
+  //   // return extractedData;
+  // }
 
   void selectCategory(BuildContext ctx, String nameDay) {
     switch (nameDay){
       case "Monday":
         Navigator.of(ctx).pushNamed(MondayScreen.routeName);
+        // this.getData();
         break;
 
       case "Tuesday":
