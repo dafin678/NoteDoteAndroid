@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:async';
 import '../models/weekly_schedule_models.dart';
+import 'schedule_screen.dart';
 
 class ScheduleForm extends StatefulWidget {
   static const routeName = '/add-schedule';
@@ -489,13 +490,13 @@ class Day {
 }
 
 const dayCategories = [
-  Day(name: 'monday', color: Colors.purple),
-  Day(name: 'tuesday', color: Colors.red),
-  Day(name: 'wednesday', color: Colors.orange),
-  Day(name: 'thursday', color: Colors.amber),
-  Day(name: 'friday', color: Colors.blue),
-  Day(name: 'saturday', color: Colors.green),
-  Day(name: 'sunday', color: Colors.lightBlue),
+  Day(name: 'Monday', color: Colors.purple),
+  Day(name: 'Tuesday', color: Colors.red),
+  Day(name: 'Wednesday', color: Colors.orange),
+  Day(name: 'Thursday', color: Colors.amber),
+  Day(name: 'Friday', color: Colors.blue),
+  Day(name: 'Saturday', color: Colors.green),
+  Day(name: 'Sunday', color: Colors.lightBlue),
 ];
 
 class DayItem extends StatelessWidget {
@@ -504,7 +505,36 @@ class DayItem extends StatelessWidget {
 
   const DayItem(this.name, this.color, {Key? key}) : super(key: key);
 
-  void selectCategory(BuildContext ctx) {
+  void selectCategory(BuildContext ctx, String nameDay) {
+    switch (nameDay){
+      case "Monday":
+        Navigator.of(ctx).pushNamed(MondayScreen.routeName);
+        break;
+
+      case "Tuesday":
+        Navigator.of(ctx).pushNamed(TuesdayScreen.routeName);
+        break;
+
+      case "Wednesday":
+        Navigator.of(ctx).pushNamed(WednesdayScreen.routeName);
+        break;
+
+      case "Thursday":
+        Navigator.of(ctx).pushNamed(ThursdayScreen.routeName);
+        break;
+
+      case "Friday":
+        Navigator.of(ctx).pushNamed(FridayScreen.routeName);
+        break;
+
+      case "Saturday":
+        Navigator.of(ctx).pushNamed(SaturdayScreen.routeName);
+        break;
+
+      case "Sunday":
+        Navigator.of(ctx).pushNamed(SundayScreen.routeName);
+        break;
+    }
     // Navigator.of(ctx).pushNamed(
     //   // CategoryMealsScreen.routeName,
     //   // arguments: {
@@ -517,7 +547,7 @@ class DayItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => selectCategory(context),
+      onTap: () => selectCategory(context, name),
       splashColor: Theme.of(context).primaryColor,
       borderRadius: BorderRadius.circular(15),
       child: Container(
