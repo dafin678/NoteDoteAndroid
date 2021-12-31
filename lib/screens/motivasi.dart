@@ -97,7 +97,7 @@ class Motivasiscreen extends State<Motivasisc> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(context,
-              MaterialPageRoute(builder: (context) => MyCustomForm5()));
+              MaterialPageRoute(builder: (context) => const MyCustomForm5()));
         },
         tooltip: 'Tambah Pesan',
       ),
