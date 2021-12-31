@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:flutter/material.dart';
 import '../widgets/main_drawer.dart';
 import 'package:http/http.dart' as http;
@@ -387,7 +385,7 @@ class _WeeklyScheduleState extends State<WeeklySchedules> {
 
   Future<void> getData() async {
     var client = http.Client();
-    var weeklyScheduleModel = null;
+    WeeklySchedule weeklyScheduleModel;
     const url = 'https://notedote.herokuapp.com/weekly_schedule/get_all_schedule/';
 
     try {
@@ -402,16 +400,16 @@ class _WeeklyScheduleState extends State<WeeklySchedules> {
         // print(jumlahData);
         for (var i = 0; i < jumlahData; ++i){
           var jsonMap = json.decode(jsonString)[i];
-          print('isi json index ke - ${i}');
-          print(jsonMap);
+          // print('isi json index ke - ${i}');
+          // print(jsonMap);
           weeklyScheduleModel = WeeklySchedule.fromJson(jsonMap);
           extractedData.add(weeklyScheduleModel);
         }
 
 
       }
-    } catch (Exception){
-      // print(Exception);
+    } catch (exception){
+      // print(exception);
       // return extractedData;
     }
 
