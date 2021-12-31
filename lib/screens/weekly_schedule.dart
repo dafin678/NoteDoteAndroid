@@ -174,8 +174,8 @@ class _ScheduleForm extends State<ScheduleForm> {
                     if (_formkey.currentState!.validate()) {
                       // print('schedule with title: ${title}, day: ${day}, start time: ${startTime}, and due time: ${dueTime} successfully added');
                       // if the form is valid, display a snackbar
-                      await http.post(
-                        Uri.parse("https://notedote.herokuapp.com/weekly_schedule/add-schedule/"),
+                      final response = await http.post(
+                        Uri.parse("https://notedote.herokuapp.com/weekly_schedule/post-data/"),
                         headers: <String, String>{
                           'Content-Type':'application/json; charset=UTF-8',
                         },
